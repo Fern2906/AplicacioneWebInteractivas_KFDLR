@@ -26,7 +26,6 @@
         <a href="#contacto" class="nav-link text-secondary p-0">Contacto</a>
     </nav>
 
-    <!-- Carrito -->
     <button class="btn btn-outline-primary d-flex align-items-center gap-2"
             data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
         <i data-lucide="shopping-cart" style="width:18px;"></i>
@@ -37,7 +36,6 @@
 
 <main>
 
-    <!-- HERO -->
     <section class="container py-5">
         <div class="row align-items-center g-5">
             <div class="col-lg-6">
@@ -84,7 +82,6 @@
         </div>
     </section>
 
-    <!-- BENEFICIOS -->
     <div class="bg-white border-top border-bottom py-4 px-5">
         <div class="container">
             <div class="row text-center g-4">
@@ -115,14 +112,12 @@
         </div>
     </div>
 
-    <!-- PRODUCTOS -->
     <section id="productos" class="container py-5">
 
         <div class="text-center mb-4">
             <h2 class="fw-bold text-dark mt-2">Productos destacados</h2>
         </div>
 
-        <!-- BUSCADOR -->
         <div class="d-flex justify-content-center mb-3">
             <div class="input-group input-group-lg search-box shadow-sm">
                 <span class="input-group-text bg-white border-end-0">
@@ -139,7 +134,6 @@
             </div>
         </div>
 
-        <!-- FILTROS -->
         <div class="d-flex justify-content-center flex-wrap gap-2 mb-4">
             <button class="btn btn-primary filter-btn active" data-filter="todos">Todos</button>
             <button class="btn btn-outline-primary filter-btn" data-filter="nuevo">Nuevo</button>
@@ -147,7 +141,6 @@
             <button class="btn btn-outline-primary filter-btn" data-filter="eco">Eco</button>
         </div>
 
-        <!-- FILTRO POR CATEGORÍA -->
         <div class="d-flex justify-content-center mb-4">
             <select id="categoryFilter" class="form-select" style="max-width:260px;">
                 <option value="todos">Todas las categorías</option>
@@ -167,10 +160,8 @@
             </button>
         </div>
 
-        <!-- GRID GENERADO CON JQUERY -->
         <div class="row g-4" id="productsGrid"></div>
 
-        <!-- SIN RESULTADOS -->
         <div id="emptyProducts" class="text-center py-5">
             <i data-lucide="search-x" style="width:50px;height:50px;" class="text-secondary mb-3"></i>
             <h3 class="h5">No encontramos productos</h3>
@@ -179,7 +170,6 @@
 
     </section>
 
-    <!-- REVIEWS -->
     <section id="reviews" class="bg-primary-subtle py-5">
         <div class="container">
             <div class="text-center mb-5">
@@ -233,7 +223,6 @@
         </div>
     </section>
 
-    <!-- FAQ -->
     <section id="faq" class="container py-5">
         <div class="text-center mb-5">
             <span class="text-primary fw-bold text-uppercase tracking-wider small">Ayuda</span>
@@ -284,7 +273,6 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer id="contacto" class="bg-dark text-white py-5 px-5">
     <div class="container">
         <div class="row g-5">
@@ -319,7 +307,6 @@
     </div>
 </footer>
 
-<!-- MODAL: DETALLE DEL PRODUCTO -->
 <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
         <div class="modal-content border-0 rounded-4 overflow-hidden">

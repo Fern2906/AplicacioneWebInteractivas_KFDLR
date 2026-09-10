@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>MovieReviews - Inicio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-dark px-3 d-flex flex-row align-items-center">
+  <a class="navbar-brand fw-bold" href="index.html"><i class="bi bi-film"></i> Movie<span class="text-primary">Reviews</span></a>
+  <div class="d-flex flex-row flex-nowrap align-items-center gap-2 ms-auto">
+    <button class="btn btn-outline-light btn-sm border-0" href="index.html">
+      <i class="bi bi-house"></i> Inicio
+    </button>  
+    <button id="btnFavoritos" class="btn btn-outline-light btn-sm border-0" data-bs-toggle="modal" data-bs-target="#modalFavoritos">
+      <i class="bi bi-heart"></i> Favoritos 
+      <span id="contadorFavoritos" class="badge bg-danger">0</span>
+    </button>
+    <input id="buscador" type="text" class="form-control form-control-sm" placeholder="Buscar película...">
+  </div>
+</nav>
+
+<div class="container py-4">
+  <h1 class="text-center"><i class="bi bi-collection-play text-primary"></i> Películas <span class="text-primary">Destacadas</span></h1>
+  <p class="text-center text-muted">Las mejores películas según la crítica y el público</p>
+
+  <div class="d-flex flex-wrap justify-content-center gap-2 mb-4" id="filtros">
+    <button class="btn btn-primary btn-sm rounded-pill activo" data-decada="todos">Todos</button>
+    <button class="btn btn-outline-secondary btn-sm rounded-pill" data-decada="1990-1999">1990-1999</button>
+    <button class="btn btn-outline-secondary btn-sm rounded-pill" data-decada="2000-2009">2000-2009</button>
+    <button class="btn btn-outline-secondary btn-sm rounded-pill" data-decada="2010-2019">2010-2019</button>
+    <button class="btn btn-outline-secondary btn-sm rounded-pill" data-decada="2020-2026">2020-2026</button>
+  </div>
+
+  <div id="spinner" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Cargando películas...</p>
+  </div>
+
+  <div id="error" class="text-center py-5 d-none">
+    <p class="text-danger">No se pudieron cargar las películas.</p>
+    <button id="btnReintentar" class="btn btn-primary btn-sm">Reintentar</button>
+  </div>
+
+  <div class="row" id="grid"></div>
+</div>
+
+<div class="modal fade" id="modalFavoritos" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-heart-fill text-danger"></i> Mis Favoritos <span id="contadorFavoritos2" class="badge bg-danger"></span></h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row" id="listaFavoritos"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cerrar</button>
+        <button id="btnEliminarTodos" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Eliminar todos</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+
+let peliculas = [];
+
+function estrellas(rating) {
+  const r = Math.round((rating || 0) / 2);
+  let html = '';
+  for (let i = 1; i <= 5; i++) html += `<i class="bi ${i <= r ? 'bi-star-fill' : 'bi-star'}"></i>`;
+  return html;
+}
+
+function pintarGrid(lista) {
+  const $grid = $('#grid').empty();
+  if (lista.length === 0) {
+    $grid.html('<p class="text-center text-muted">No se encontraron películas.</p>');
+    return;
+  }
+  lista.forEach(p => {
+    const fav = esFavorito(p.id);
+    $grid.append(`
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
+        <div class="card h-100 card-pelicula">
+          <img src="${p.primaryImage}" class="card-img-top" alt="${p.primaryTitle}">
+          <div class="card-body">
+            <div class="d-flex justify-content-between">
+              <h6 class="card-title mb-1">${p.primaryTitle}</h6>
+              <button class="btn btn-sm btn-favorito border-0" data-id="${p.id}">
+                <i class="bi ${fav ? 'bi-heart-fill' : 'bi-heart'}"></i>
+              </button>
+            </div>
+            <p class="d-flex justify-content-between mb-1">
+              <span class="text-muted">${p.startYear}</span>
+              <span class="text-warning fw-bold">${p.averageRating} <i class="bi bi-star-fill"></i></span>
+            </p>
+            <p class="mb-2">${estrellas(p.averageRating)}</p>
+            <a href="Reseña.html?id=${p.id}" class="btn btn-primary btn-sm w-100"><i class="bi bi-eye"></i> Ver reseña</a>
+          </div>
+        </div>
+      </div>`);
+  });
+  $('.card-pelicula').hover(
+    function () { $(this).addClass('hover-elevada'); },
+    function () { $(this).removeClass('hover-elevada'); }
+  );
+}
+
+function aplicarFiltros() {
+  const decada = $('#filtros .activo').data('decada');
+  const texto = $('#buscador').val().toLowerCase();
+  let lista = peliculas;
+  if (decada !== 'todos') {
+    const [ini, fin] = decada.split('-').map(Number);
+    lista = lista.filter(p => p.startYear >= ini && p.startYear <= fin);
+  }
+  if (texto) lista = lista.filter(p => p.primaryTitle.toLowerCase().includes(texto));
+  pintarGrid(lista);
+}
+
+function imagenURL(img) {
+  if (!img) return 'https://placehold.co/300x450?text=Sin+imagen';
+  return typeof img === 'string' ? img : img.url;
+}
+
+function cargarPeliculas() {
+  $('#spinner').removeClass('d-none');
+  $('#error').addClass('d-none');
+  $('#grid').empty();
+
+  const settings = {
+    async: true,
+    crossDomain: true,
+    url: 'https://imdb236.p.rapidapi.com/api/imdb/top250-movies',
+    method: 'GET',
+    headers: {
+      'x-rapidapi-key': '3298c534e5msha0476afe9ce3d60p15e39ejsn054e5f0842e7',
+      'x-rapidapi-host': 'imdb236.p.rapidapi.com',
+      'Content-Type': 'application/json'
+    }
+  };
+
+  $.ajax(settings)
+    .done(function (response) {
+      const lista = Array.isArray(response) ? response : (response.results || response.movies || []);
+      if (lista.length) {
+        peliculas = lista.map(t => ({
+          id: t.id, primaryTitle: t.primaryTitle, startYear: t.startYear,
+          primaryImage: imagenURL(t.primaryImage),
+          averageRating: t.averageRating,
+          genres: t.genres, runtimeMinutes: t.runtimeMinutes, numVotes: t.numVotes,
+          metascore: t.metascore, description: t.description,
+          spokenLanguages: t.spokenLanguages, countriesOfOrigin: t.countriesOfOrigin,
+          interests: t.interests, budget: t.budget, grossWorldwide: t.grossWorldwide,
+          contentRating: t.contentRating, productionCompanies: t.productionCompanies,
+          externalLinks: t.externalLinks, trailer: t.trailer
+        }));
+        $('#spinner').addClass('d-none');
+        aplicarFiltros();
+      } else {
+        cargarDesdeJSON();
+      }
+    })
+    .fail(cargarDesdeJSON);
+}
+
+function cargarDesdeJSON() {
+  $.getJSON('peliculas.json')
+    .done(function (data) {
+      peliculas = data;
+      $('#spinner').addClass('d-none');
+      aplicarFiltros();
+    })
+    .fail(function () {
+      $('#spinner').addClass('d-none');
+      $('#error').removeClass('d-none');
+    });
+}
+
+$(function () {
+  cargarPeliculas();
+
+  $('#filtros button').on('click', function () {
+    $('#filtros button').removeClass('activo btn-primary').addClass('btn-outline-secondary');
+    $(this).addClass('activo btn-primary').removeClass('btn-outline-secondary');
+    aplicarFiltros();
+  });
+
+  $('#buscador').on('keyup', aplicarFiltros);
+
+  $('#btnReintentar').on('click', cargarPeliculas);
+
+  $('#grid').on('click', '.btn-favorito', function () {
+    const id = $(this).data('id');
+    const pelicula = peliculas.find(p => p.id === id);
+    alternarFavorito(pelicula);
+    aplicarFiltros();
+  });
+
+  $('#modalFavoritos').on('show.bs.modal', function () {
+    $('#contadorFavoritos2').text(obtenerFavoritos().length);
+  });
+});
+</script>
+</body>
+</html>

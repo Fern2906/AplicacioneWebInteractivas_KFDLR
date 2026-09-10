@@ -1,0 +1,8 @@
+.card-pelicula { transition: transform .2s, box-shadow .2s; }
+.card-pelicula.hover-elevada { transform: translateY(-6px); box-shadow: 0 10px 20px rgba(0,0,0,.2); }
+.card-pelicula img { height: 320px; object-fit: cover; }
+.btn-favorito i.bi-heart-fill { color: #dc3545; }
+#btnFavoritos:focus, #btnFavoritos:active { outline: none; box-shadow: none; }
+.barra-metascore { height: 8px; border-radius: 4px; background: #e9ecef; overflow: hidden; }
+.barra-metascore span { display: block; height: 100%; }
+.poster-detalle { max-height: 480px; object-fit: cover; }

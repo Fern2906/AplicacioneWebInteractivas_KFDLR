@@ -1,0 +1,70 @@
+@import 'tailwindcss';
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "SF Pro", "Instrument Sans", system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+/* Apple Fluid Design Utilities */
+@layer utilities {
+    .apple-glass {
+        background-color: rgba(255, 255, 255, 0.72);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+    }
+
+    .dark .apple-glass {
+        background-color: rgba(28, 28, 30, 0.72);
+        backdrop-filter: blur(24px) saturate(180%);
+        -webkit-backdrop-filter: blur(24px) saturate(180%);
+    }
+
+    .apple-glass-card {
+        background-color: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+    }
+
+    .dark .apple-glass-card {
+        background-color: rgba(36, 36, 38, 0.85);
+        backdrop-filter: blur(16px) saturate(160%);
+        -webkit-backdrop-filter: blur(16px) saturate(160%);
+    }
+
+    /* Apple spring curve */
+    .ease-apple {
+        transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* Instant tactile feedback on pointer-down (Apple Design §1) */
+    .apple-press {
+        transition: transform 120ms cubic-bezier(0.16, 1, 0.3, 1), opacity 120ms ease;
+    }
+
+    .apple-press:active {
+        transform: scale(0.97);
+    }
+}
+
+/* Subtle custom scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 9999px;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}

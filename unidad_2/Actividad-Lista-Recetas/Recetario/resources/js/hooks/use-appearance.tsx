@@ -47,9 +47,12 @@ const applyTheme = (appearance: Appearance): void => {
     }
 
     const isDark = isDarkMode(appearance);
+    const theme = isDark ? 'dark' : 'light';
 
     document.documentElement.classList.toggle('dark', isDark);
-    document.documentElement.style.colorScheme = isDark ? 'dark' : 'light';
+    document.documentElement.style.colorScheme = theme;
+    // Darwin UI requires data-theme attribute for theme-aware styling
+    document.documentElement.setAttribute('data-theme', theme);
 };
 
 const subscribe = (callback: () => void) => {

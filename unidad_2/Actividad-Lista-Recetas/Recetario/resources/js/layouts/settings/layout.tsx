@@ -10,6 +10,8 @@ import { edit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security';
 import type { NavItem } from '@/types';
 
+// Import Darwin UI styles in your app entry point
+import '@pikoloo/darwin-ui/styles.css';
 const sidebarNavItems: NavItem[] = [
     {
         title: 'Profile',

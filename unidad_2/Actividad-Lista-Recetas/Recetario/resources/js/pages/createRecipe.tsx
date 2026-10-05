@@ -31,7 +31,6 @@ function CreateRecipeInner({ categorias, dificultades }: CreateRecipeProps) {
 
     const getActiveItem = (u: string) => {
         if (u.startsWith('/createRecipe')) return 'Nueva receta';
-        if (u.startsWith('/mis-recetas'))  return 'Mis recetas';
         return 'Inicio';
     };
 
@@ -61,16 +60,6 @@ function CreateRecipeInner({ categorias, dificultades }: CreateRecipeProps) {
             onSuccess: () => reset(),
         });
     };
-
-    const handleUpload = async (uploadedFiles: File[]): Promise<string[]> => {
-        if (uploadedFiles[0]) setData('imagen', uploadedFiles[0]);
-        return uploadedFiles.map(f => URL.createObjectURL(f));
-    };
-
-    const [fileUrls, setFileUrls] = [
-        data.imagen ? [URL.createObjectURL(data.imagen)] : [] as string[],
-        (urls: string[]) => { if (!urls.length) setData('imagen', null); },
-    ] as const;
 
     return (
         <div className="flex h-screen min-h-screen w-full ">

@@ -43,7 +43,6 @@ function EditRecipeInner({ receta, categorias, dificultades }: EditRecipeProps) 
 
     const getActiveItem = (u: string) => {
         if (u.startsWith('/createRecipe')) return 'Nueva receta';
-        if (u.startsWith('/mis-recetas'))  return 'Mis recetas';
         return 'Inicio';
     };
 
@@ -59,10 +58,6 @@ function EditRecipeInner({ receta, categorias, dificultades }: EditRecipeProps) 
         _method:       'PUT',
     });
 
-    const [fileUrls, setFileUrls] = useState<string[]>(
-        receta.imagen ? [`/storage/${receta.imagen}`] : []
-    );
-
     const categoryOptions = categorias.map(c  => ({ label: c.nombre, value: c.id.toString() }));
     const dificultOptions = dificultades.map(d => ({ label: d.nombre, value: d.id.toString() }));
 
@@ -76,10 +71,6 @@ function EditRecipeInner({ receta, categorias, dificultades }: EditRecipeProps) 
         post(`/recipes/${receta.id}`, { forceFormData: true });
     };
 
-    const handleUpload = async (uploadedFiles: File[]): Promise<string[]> => {
-        if (uploadedFiles[0]) setData('imagen', uploadedFiles[0]);
-        return uploadedFiles.map(f => URL.createObjectURL(f));
-    };
 
     return (
         <div className="flex h-screen min-h-screen w-full">

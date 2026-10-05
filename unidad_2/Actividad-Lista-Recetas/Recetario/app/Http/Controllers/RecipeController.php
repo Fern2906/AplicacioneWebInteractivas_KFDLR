@@ -38,6 +38,19 @@ class RecipeController extends Controller
             'ingredientes' => 'required|string',
             'nota'         => 'nullable|string',
             'imagen'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ], [
+            'required' => 'El :attribute es obligatorio.',
+            'exists'   => 'El valor seleccionado para :attribute no es válido.',
+            'max'      => 'El campo :attribute no debe superar los :max caracteres.',
+        ], [
+            'titulo'       => 'título',
+            'categoria_id' => 'categoría',
+            'dificultad_id'=> 'dificultad',
+            'tiempo'       => 'tiempo',
+            'pasos'        => 'pasos',
+            'ingredientes' => 'ingredientes',
+            'nota'         => 'nota',
+            'imagen'       => 'imagen',
         ]);
 
         if ($request->hasFile('imagen')) {
@@ -89,6 +102,19 @@ class RecipeController extends Controller
             'ingredientes' => 'required|string',
             'nota'         => 'nullable|string',
             'imagen'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ], [
+            'required' => 'El :attribute es obligatorio.',
+            'exists'   => 'El valor seleccionado para :attribute no es válido.',
+            'max'      => 'El campo :attribute no debe superar los :max caracteres.',
+        ], [
+            'titulo'       => 'título',
+            'categoria_id' => 'categoría',
+            'dificultad_id'=> 'dificultad',
+            'tiempo'       => 'tiempo',
+            'pasos'        => 'pasos',
+            'ingredientes' => 'ingredientes',
+            'nota'         => 'nota',
+            'imagen'       => 'imagen',
         ]);
 
         if ($request->hasFile('imagen')) {

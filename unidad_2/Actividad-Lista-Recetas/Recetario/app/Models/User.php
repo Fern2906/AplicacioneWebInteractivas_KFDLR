@@ -10,11 +10,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    // Apunta a tu tabla personalizada
     protected $table = 'usuarios';
-
-    // Laravel usa 'password' internamente para auth,
-    // lo mapeamos a tu columna 'contrasena'
     protected $rememberTokenName = null;
 
     protected $fillable = [

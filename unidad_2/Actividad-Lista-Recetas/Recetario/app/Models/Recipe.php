@@ -15,17 +15,23 @@ class Recipe extends Model
         'pasos',
         'nota',
         'imagen',
-        'categoriaId',
-        'dificultadId'
+        'usuario_id',
+        'categoria_id',
+        'dificultad_id'
     ];
+
+    public function  usuario()
+    {
+        return $this->belongsTo(User::class, 'usuario_id', 'id');
+    }
 
     public function categoria()
     {
-        return $this->belongsTo(Category::class, 'categoriaId', 'id');
+        return $this->belongsTo(Category::class, 'categoria_id', 'id');
     }
 
     public function dificultad()
     {
-        return $this->belongsTo(Dificult::class, 'dificultadId', 'id');
+        return $this->belongsTo(Dificult::class, 'dificultad_id', 'id');
     }
 }

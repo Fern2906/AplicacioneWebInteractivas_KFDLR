@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RecipeController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/login');
@@ -18,7 +19,15 @@ Route::post('/logout', [LoginController::class, 'destroy'])
 
 // Rutas protegidas
 Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', [DashboardController::class,'index'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    // Recetas
+    Route::get('/createRecipe',        [RecipeController::class, 'create'])->name('createRecipe');
+    Route::post('/recipes',            [RecipeController::class, 'store'])->name('recipes.store');
+    Route::get('/recipes/{id}',        [RecipeController::class, 'show'])->name('recipes.show');
+    Route::get('/recipes/{id}/edit',   [RecipeController::class, 'edit'])->name('recipes.edit');
+    Route::put('/recipes/{id}',        [RecipeController::class, 'update'])->name('recipes.update');
+    Route::delete('/recipes/{id}',     [RecipeController::class, 'destroy'])->name('recipes.destroy');
 });
 
 require __DIR__.'/settings.php';

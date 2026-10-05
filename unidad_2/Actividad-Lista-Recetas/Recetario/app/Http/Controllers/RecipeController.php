@@ -3,63 +3,116 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Recipe;
+use App\Models\Category;
+use App\Models\Dificult;
+use Illuminate\Support\Facades\Storage;
+use Inertia\Inertia;
+
 class RecipeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        
+        $categorias   = Category::select('id', 'nombre')->orderBy('nombre')->get();
+        $dificultades = Dificult::select('id', 'nombre')->orderBy('id')->get();
+
+        return Inertia::render('createRecipe', [
+            'categorias'   => $categorias,
+            'dificultades' => $dificultades,
+        ]);
     }
 
     public function store(Request $request)
     {
-        $recipe = Recipe::create($request->all());
-        return redirect()->route("")->with("success","");
+        $validated = $request->validate([
+            'titulo'       => 'required|string|max:255',
+            'categoria_id' => 'required|integer|exists:categorias,id',
+            'dificultad_id'=> 'required|integer|exists:dificultades,id',
+            'tiempo'       => 'required|integer|min:1',
+            'pasos'        => 'required|string',
+            'ingredientes' => 'required|string',
+            'nota'         => 'nullable|string',
+            'imagen'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            $validated['imagen'] = $request->file('imagen')->store('recetas', 'public');
+        }
+
+        $validated['usuario_id'] = auth()->id();
+
+        Recipe::create($validated);
+
+        return redirect()->route('dashboard')->with('success', '¡Receta creada con éxito!');
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
-        $recipe = Recipe::find($id);
-        return view("", compact(""));
-        //
+        $receta = Recipe::with(['categoria', 'dificultad'])
+            ->where('usuario_id', auth()->id())
+            ->findOrFail($id);
+
+        return Inertia::render('recipeDetail', [
+            'receta' => $receta,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        //
+        $receta = Recipe::where('usuario_id', auth()->id())->findOrFail($id);
+
+        $categorias   = Category::select('id', 'nombre')->orderBy('nombre')->get();
+        $dificultades = Dificult::select('id', 'nombre')->orderBy('id')->get();
+
+        return Inertia::render('editRecipe', [
+            'receta'       => $receta,
+            'categorias'   => $categorias,
+            'dificultades' => $dificultades,
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
-        //
+        $receta = Recipe::where('usuario_id', auth()->id())->findOrFail($id);
+
+        $validated = $request->validate([
+            'titulo'       => 'required|string|max:255',
+            'categoria_id' => 'required|integer|exists:categorias,id',
+            'dificultad_id'=> 'required|integer|exists:dificultades,id',
+            'tiempo'       => 'required|integer|min:1',
+            'pasos'        => 'required|string',
+            'ingredientes' => 'required|string',
+            'nota'         => 'nullable|string',
+            'imagen'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+        ]);
+
+        if ($request->hasFile('imagen')) {
+            if ($receta->imagen) {
+                Storage::disk('public')->delete($receta->imagen);
+            }
+            $validated['imagen'] = $request->file('imagen')->store('recetas', 'public');
+        }
+
+        $receta->update($validated);
+
+        return redirect()->route('dashboard')->with('success', '¡Receta actualizada con éxito!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
-        //
+        $receta = Recipe::where('usuario_id', auth()->id())->findOrFail($id);
+
+        if ($receta->imagen) {
+            Storage::disk('public')->delete($receta->imagen);
+        }
+
+        $receta->delete();
+
+        return redirect()->route('dashboard')->with('success', 'Receta eliminada.');
     }
 }

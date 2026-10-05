@@ -1,15 +1,9 @@
-/**
- * RecipeBackground
- * Fondo oscuro con temática de recetario: patrón SVG sutil de utensilios
- * de cocina (tenedor, cuchillo, cuchara) sobre un gradiente cálido-oscuro.
- */
+
 export default function RecipeBackground({ children }: { children: React.ReactNode }) {
     return (
         <div className="relative flex-1 overflow-hidden">
-            {/* Capa de gradiente base */}
             <div className="absolute inset-0 bg-[#0f0d0b]" />
 
-            {/* Gradiente radial cálido centrado */}
             <div
                 className="absolute inset-0"
                 style={{

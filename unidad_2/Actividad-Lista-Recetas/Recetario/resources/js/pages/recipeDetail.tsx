@@ -1,3 +1,6 @@
+import RecipeBackground from '@/components/recipe-background';
+import { createRecipe, dashboard } from '@/routes';
+import { router, usePage } from '@inertiajs/react';
 import {
     Sidebar, Reveal, Card, CardContent, Badge,
     Button, Accordion, AccordionContent,
@@ -6,6 +9,7 @@ import {
     Dialog, DialogContent, DialogHeader, DialogTitle,
     DialogDescription, DialogFooter, DialogClose,
 } from '@pikoloo/darwin-ui';
+import { ArrowLeft, ChefHat, Clock, HomeIcon, Pencil, Plus, Trash2 } from 'lucide-react';
 import { useState } from 'react';
 
 interface Receta {
@@ -36,7 +40,6 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
 
     const items = [
         { label: 'Inicio',       onClick: () => router.visit(dashboard.url()),    icon: HomeIcon },
-        { label: 'Mis recetas',  onClick: () => router.visit('/mis-recetas'),     icon: ChefHat  },
         { label: 'Nueva receta', onClick: () => router.visit(createRecipe.url()), icon: Plus     },
     ];
 
@@ -46,7 +49,6 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
         });
     };
 
-    // Convertir texto con saltos de línea a lista
     const toLines = (text: string) =>
         text.split('\n').map(l => l.trim()).filter(Boolean);
 
@@ -60,9 +62,8 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
                 glass
             />
             <RecipeBackground>
-                <div className="py-6 px-6 max-w-3xl mx-auto space-y-6">
+                <div className="py-6 px-6 max-w-6xl mx-auto space-y-6">
 
-                    {/* Botón volver */}
                     <Reveal type="fade" delay={0.05}>
                         <Button variant="ghost" size="sm" onClick={() => router.visit('/dashboard')}>
                             <ArrowLeft className="h-4 w-4 mr-1" />
@@ -70,20 +71,6 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
                         </Button>
                     </Reveal>
 
-                    {/* Imagen */}
-                    {receta.imagen && (
-                        <Reveal type="fade" delay={0.1}>
-                            <div className="w-full h-64 rounded-2xl overflow-hidden">
-                                <img
-                                    src={`/storage/${receta.imagen}`}
-                                    alt={receta.titulo}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                        </Reveal>
-                    )}
-
-                    {/* Cabecera */}
                     <Reveal type="fade" delay={0.15}>
                         <Card glass>
                             <CardContent className="pt-5 space-y-3">
@@ -125,12 +112,11 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
                         </Card>
                     </Reveal>
 
-                    {/* Acordeón: Ingredientes, Pasos, Notas */}
                     <Reveal type="fade" delay={0.2}>
                         <Accordion type="multiple" defaultValue={['ingredientes', 'pasos']}>
                             <AccordionItem value="ingredientes">
                                 <AccordionTrigger className="text-white font-semibold">
-                                    🧂 Ingredientes
+                                    Ingredientes
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     <ul className="space-y-1.5 pt-1">
@@ -146,7 +132,7 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
 
                             <AccordionItem value="pasos">
                                 <AccordionTrigger className="text-white font-semibold">
-                                    👨‍🍳 Preparación
+                                    Preparación
                                 </AccordionTrigger>
                                 <AccordionContent>
                                     <ol className="space-y-3 pt-1">
@@ -165,7 +151,7 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
                             {receta.nota && (
                                 <AccordionItem value="notas">
                                     <AccordionTrigger className="text-white font-semibold">
-                                        📝 Notas
+                                        Notas
                                     </AccordionTrigger>
                                     <AccordionContent>
                                         <p className="text-sm text-white/70 pt-1">{receta.nota}</p>
@@ -176,7 +162,6 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
                     </Reveal>
                 </div>
 
-                {/* Modal confirmación borrado */}
                 <Dialog open={confirmDelete} onOpenChange={setConfirmDelete}>
                     <DialogContent glass>
                         <DialogHeader>

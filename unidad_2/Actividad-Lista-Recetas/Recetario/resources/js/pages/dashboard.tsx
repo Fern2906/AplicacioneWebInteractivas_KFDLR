@@ -6,10 +6,11 @@ import {
     DialogTitle, DialogDescription, DialogFooter, DialogClose,
 } from '@pikoloo/darwin-ui';
 import { useEffect, useState } from 'react';
-import { ChefHat, HomeIcon, Plus, Pencil, Trash2, Eye, UtensilsCrossed } from 'lucide-react';
+import { HomeIcon, Plus, Pencil, Trash2, Eye, UtensilsCrossed, CookingPot, ChefHat } from 'lucide-react';
 import { Link, router, usePage } from '@inertiajs/react';
 import { dashboard, createRecipe } from '@/routes';
 import RecipeBackground from '@/components/recipe-background';
+import HomeHeader from '@/components/home-header';
 
 interface Categoria  { id: number; nombre: string; }
 interface Dificultad { id: number; nombre: string; }
@@ -42,13 +43,20 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
 
     const getActiveItem = (u: string) => {
         if (u.startsWith('/createRecipe')) return 'Nueva receta';
-        if (u.startsWith('/mis-recetas'))  return 'Mis recetas';
         return 'Inicio';
     };
 
     const [search,      setSearch]      = useState(filters.search       ?? '');
-    const [catFilter,   setCatFilter]   = useState<string[]>(filters.categoria_id   ? [filters.categoria_id]   : []);
-    const [dificFilter, setDificFilter] = useState<string[]>(filters.dificultad_id  ? [filters.dificultad_id]  : []);
+    const [catFilter,   setCatFilter]   = useState<string[]>(
+        Array.isArray(filters.categoria_id) 
+            ? filters.categoria_id 
+            : filters.categoria_id ? [filters.categoria_id] : []
+    );
+    const [dificFilter, setDificFilter] = useState<string[]>(
+        Array.isArray(filters.dificultad_id) 
+            ? filters.dificultad_id 
+            : filters.dificultad_id ? [filters.dificultad_id] : []
+    );
     const [deleteId,    setDeleteId]    = useState<number | null>(null);
 
     const applyFilters = (
@@ -58,8 +66,8 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
     ) => {
         router.get('/dashboard', {
             search:        s         || undefined,
-            categoria_id:  cats[0]   || undefined,
-            dificultad_id: difs[0]   || undefined,
+            categoria_id:  cats.length > 0 ? cats :  undefined,
+            dificultad_id: difs.length > 0 ? difs : undefined,
         }, { preserveState: true, replace: true });
     };
 
@@ -69,13 +77,16 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
             onFinish: () => setDeleteId(null),
         });
     };
+    
+    const handleLogout = () => {
+        router.post('/logout');
+    }
 
     const categoryOptions  = categorias.map(c  => ({ label: c.nombre,  value: c.id.toString() }));
     const dificultOptions  = dificultades.map(d => ({ label: d.nombre, value: d.id.toString() }));
 
     const items = [
         { label: 'Inicio',       onClick: () => router.visit(dashboard.url()),    icon: HomeIcon },
-        { label: 'Mis recetas',  onClick: () => router.visit('/mis-recetas'),     icon: ChefHat  },
         { label: 'Nueva receta', onClick: () => router.visit(createRecipe.url()), icon: Plus     },
     ];
 
@@ -84,14 +95,13 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
             <Sidebar
                 items={items}
                 activeItem={getActiveItem(url)}
-                onLogout={() => {}}
+                onLogout={handleLogout}
                 collapsible
                 glass
             />
             <RecipeBackground>
                 <div className="py-6 px-6 space-y-5">
-
-                    {/* Barra de búsqueda + botón crear */}
+                    <HomeHeader label='Bienvenido a tu recetario' icon={ChefHat}/>
                     <Reveal type="fade" delay={0.1}>
                         <div className="flex gap-3 items-center">
                             <div className="flex-1">
@@ -113,7 +123,6 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
                         </div>
                     </Reveal>
 
-                    {/* Filtros */}
                     <Reveal type="fade" delay={0.15}>
                         <div className="flex gap-3 flex-wrap">
                             <MultiSelect
@@ -146,7 +155,6 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
                         </div>
                     </Reveal>
 
-                    {/* Grid de recetas */}
                     {recetas.length === 0 ? (
                         <Reveal type="fade" delay={0.2}>
                             <div className="flex flex-col items-center justify-center gap-4 py-24 text-white/40">
@@ -219,7 +227,6 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
                     )}
                 </div>
 
-                {/* Modal de confirmación de borrado */}
                 <Dialog open={deleteId !== null} onOpenChange={open => { if (!open) setDeleteId(null); }}>
                     <DialogContent>
                         <DialogHeader>

@@ -23,11 +23,20 @@ class DashboardController extends Controller
         }
 
         if ($request->filled('categoria_id')) {
-            $query->where('categoria_id', $request->categoria_id);
+            // Asegura que siempre se maneje como un arreglo, ya sea uno o varios valores
+            $categoriasFiltro = is_array($request->categoria_id) 
+                ? $request->categoria_id 
+                : [$request->categoria_id];
+            
+            $query->whereIn('categoria_id', $categoriasFiltro);
         }
 
         if ($request->filled('dificultad_id')) {
-            $query->where('dificultad_id', $request->dificultad_id);
+            $dificultadesFiltro = is_array($request->dificultad_id) 
+                ? $request->dificultad_id 
+                : [$request->dificultad_id];
+            
+            $query->whereIn('dificultad_id', $dificultadesFiltro);
         }
 
         $recetas = $query->orderBy('created_at', 'desc')->get();

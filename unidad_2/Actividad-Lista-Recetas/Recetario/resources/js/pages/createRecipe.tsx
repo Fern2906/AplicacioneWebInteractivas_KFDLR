@@ -51,7 +51,6 @@ function CreateRecipeInner({ categorias, dificultades }: CreateRecipeProps) {
 
     const items = [
         { label: 'Inicio',        onClick: () => router.visit(dashboard.url()),    icon: HomeIcon },
-        { label: 'Mis recetas',   onClick: () => router.visit('/mis-recetas'),     icon: ChefHat  },
         { label: 'Nueva receta',  onClick: () => router.visit(createRecipe.url()), icon: Plus     },
     ];
 
@@ -74,7 +73,7 @@ function CreateRecipeInner({ categorias, dificultades }: CreateRecipeProps) {
     ] as const;
 
     return (
-        <div className="flex h-screen min-h-screen w-full">
+        <div className="flex h-screen min-h-screen w-full ">
             <Sidebar
                 items={items}
                 activeItem={getActiveItem(url)}
@@ -83,7 +82,7 @@ function CreateRecipeInner({ categorias, dificultades }: CreateRecipeProps) {
                 glass
             />
             <RecipeBackground>
-                <div className="py-6 px-6">
+                <div className="py-6 px-6 max-w-6xl mx-auto space-y-6">
                     <Reveal type="fade" delay={0.1}>
                         <Card className="max-w-3xl mx-auto shadow-md" glass>
                             <CardHeader>

@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             CategoriaSeeder::class,
             DificultadSeeder::class,
             UserSeeder::class,
+            RecetaSeeder::class
         ]);
     }
 }

@@ -77,11 +77,13 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
                                 <h1 className="text-2xl font-bold text-white">{receta.titulo}</h1>
 
                                 <div className="flex flex-wrap gap-2 items-center">
-                                    {receta.categoria && (
-                                        <Badge variant="secondary">{receta.categoria.nombre}</Badge>
-                                    )}
                                     {receta.dificultad && (
-                                        <Badge variant="outline">{receta.dificultad.nombre}</Badge>
+                                        <Badge variant={receta.dificultad?.nombre === 'Fácil' ? 'success' : receta.dificultad?.nombre === 'Intermedia' ? 'warning' : 'destructive'}>
+                                            {receta.dificultad?.nombre}
+                                        </Badge>
+                                    )}
+                                    {receta.categoria && (
+                                        <Badge variant="info">{receta.categoria.nombre}</Badge>
                                     )}
                                     <div className="flex items-center gap-1 text-sm text-white/50">
                                         <Clock className="h-3.5 w-3.5" />
@@ -89,7 +91,6 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
                                     </div>
                                 </div>
 
-                                {/* Acciones */}
                                 <div className="flex gap-2 pt-1">
                                     <Button
                                         variant="secondary"
@@ -147,7 +148,6 @@ function RecipeDetailInner({ receta }: RecipeDetailProps) {
                                     </ol>
                                 </AccordionContent>
                             </AccordionItem>
-
                             {receta.nota && (
                                 <AccordionItem value="notas">
                                     <AccordionTrigger className="text-white font-semibold">

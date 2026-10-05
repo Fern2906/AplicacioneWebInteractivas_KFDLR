@@ -146,7 +146,7 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
                                     variant="secondary"
                                     onClick={() => {
                                         setSearch(''); setCatFilter([]); setDificFilter([]);
-                                        router.get('/dashboard', {}, { replace: true });
+                                        router.get('/dashboard', {}, {preserveState: true, replace: true });
                                     }}
                                 >
                                     Limpiar filtros
@@ -188,7 +188,7 @@ function DashboardInner({ categorias, dificultades, recetas, filters }: Dashboar
                                                     </Badge>
                                                 )}
                                                 {receta.dificultad && (
-                                                    <Badge variant="outline">
+                                                    <Badge variant={receta.dificultad?.nombre === 'Fácil' ? 'success' : receta.dificultad?.nombre === 'Intermedia' ? 'warning' : 'destructive'}>
                                                         {receta.dificultad.nombre}
                                                     </Badge>
                                                 )}

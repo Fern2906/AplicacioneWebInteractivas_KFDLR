@@ -68,13 +68,11 @@ function EditRecipeInner({ receta, categorias, dificultades }: EditRecipeProps) 
 
     const items = [
         { label: 'Inicio',       onClick: () => router.visit(dashboard.url()),    icon: HomeIcon },
-        { label: 'Mis recetas',  onClick: () => router.visit('/mis-recetas'),     icon: ChefHat  },
         { label: 'Nueva receta', onClick: () => router.visit(createRecipe.url()), icon: Plus     },
     ];
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.SubmitEvent) => {
         e.preventDefault();
-        // PUT via POST + _method spoofing (necesario para FormData)
         post(`/recipes/${receta.id}`, { forceFormData: true });
     };
 
@@ -184,20 +182,6 @@ function EditRecipeInner({ receta, categorias, dificultades }: EditRecipeProps) 
                                             onChange={e => setData('nota', e.target.value)}
                                             rows={2}
                                         />
-                                    </div>
-
-                                    <div className="space-y-1.5 p-4 border border-white/10 rounded-lg bg-white/5">
-                                        <label className="text-sm font-medium">
-                                            Imagen {receta.imagen ? '(cambiar imagen)' : '(opcional)'}
-                                        </label>
-                                        <Upload
-                                            value={fileUrls}
-                                            onChange={setFileUrls}
-                                            onUpload={handleUpload}
-                                            maxFiles={1}
-                                            label="Arrastra tu imagen aquí"
-                                        />
-                                        <InputError message={errors.imagen} />
                                     </div>
 
                                 </CardContent>

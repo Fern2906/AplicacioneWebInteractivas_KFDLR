@@ -1,6 +1,6 @@
 import {
     Sidebar, Button, Reveal, Card, CardContent, CardDescription,
-    CardFooter, CardTitle, Textarea, Select, Upload, CardHeader,
+    CardFooter, CardTitle, Textarea, Select, CardHeader,
     useToast, ToastProvider,
 } from '@pikoloo/darwin-ui';
 import { useEffect } from 'react';
@@ -174,21 +174,7 @@ function CreateRecipeInner({ categorias, dificultades }: CreateRecipeProps) {
                                             rows={2}
                                         />
                                     </div>
-
-                                    <div className="space-y-1.5 p-4 border border-white/10 rounded-lg bg-white/5">
-                                        <label className="text-sm font-medium">Imagen (opcional)</label>
-                                        <Upload
-                                            value={fileUrls}
-                                            onChange={setFileUrls}
-                                            onUpload={handleUpload}
-                                            maxFiles={1}
-                                            label="Arrastra tu imagen aquí"
-                                        />
-                                        <InputError message={errors.imagen} />
-                                    </div>
-
                                 </CardContent>
-
                                 <CardFooter className="gap-2">
                                     <Button type="submit" variant="primary" loading={processing}>
                                         {processing ? 'Guardando...' : 'Crear receta'}

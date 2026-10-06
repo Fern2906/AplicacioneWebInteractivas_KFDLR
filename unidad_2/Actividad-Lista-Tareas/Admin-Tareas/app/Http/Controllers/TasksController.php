@@ -25,7 +25,7 @@ class TasksController extends Controller
 
         $tareas = $consulta->orderByDesc('created_at')->get()->groupBy('estado');
 
-        return view('Taskss.index', [
+        return view('Tasks.index', [
             'tareasPorEstado' => $tareas,
             'estados' => Tasks::ESTADOS,
             'prioridades' => Tasks::PRIORIDADES,
@@ -35,7 +35,7 @@ class TasksController extends Controller
 
     public function create()
     {
-        return view('Taskss.create', [
+        return view('Tasks.create', [
             'estados' => Tasks::ESTADOS,
             'prioridades' => Tasks::PRIORIDADES,
         ]);
@@ -47,12 +47,12 @@ class TasksController extends Controller
 
         Tasks::create($datos);
 
-        return redirect()->route('Taskss.index')->with('exito', 'Tarea creada.');
+        return redirect()->route('Tasks.index')->with('exito', 'Tarea creada.');
     }
 
     public function show(Tasks $Tasks)
     {
-        return view('Taskss.show', [
+        return view('Tasks.show', [
             'tarea' => $Tasks,
             'estados' => Tasks::ESTADOS,
             'prioridades' => Tasks::PRIORIDADES,
@@ -61,7 +61,7 @@ class TasksController extends Controller
 
     public function edit(Tasks $Tasks)
     {
-        return view('Taskss.edit', [
+        return view('Tasks.edit', [
             'tarea' => $Tasks,
             'estados' => Tasks::ESTADOS,
             'prioridades' => Tasks::PRIORIDADES,
@@ -74,14 +74,14 @@ class TasksController extends Controller
 
         $Tasks->update($datos);
 
-        return redirect()->route('Taskss.index')->with('exito', 'Tarea actualizada.');
+        return redirect()->route('Tasks.index')->with('exito', 'Tarea actualizada.');
     }
 
     public function destroy(Tasks $Tasks)
     {
         $Tasks->delete();
 
-        return redirect()->route('Taskss.index')->with('exito', 'Tarea eliminada.');
+        return redirect()->route('Tasks.index')->with('exito', 'Tarea eliminada.');
     }
 
     public function changeStatus(Request $peticion, Tasks $Tasks)
@@ -93,7 +93,7 @@ class TasksController extends Controller
 
         $Tasks->update($datos);
 
-        return redirect()->route('Taskss.index')->with('exito', 'Estado actualizado.');
+        return redirect()->route('Tasks.index')->with('exito', 'Estado actualizado.');
     }
 
     protected function validar(Request $peticion): array

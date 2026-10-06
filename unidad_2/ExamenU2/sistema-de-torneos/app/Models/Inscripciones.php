@@ -3,15 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
 
+#[Fillable(['user_id', 'torneo_id'])]
 class Inscripciones extends Model
 {
     protected $table = "inscripciones";
-
-    protected $fillable = [
-        "user_id",
-        "torneo_id",
-    ] ;
 
     protected $casts = [
         "user_id"=> "integer",

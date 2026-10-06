@@ -3,6 +3,9 @@
 use App\Http\Controllers\TasksController;
 use Illuminate\Support\Facades\Route;
 
+// Redirige la raíz al tablero de tareas
+Route::get('/', fn() => redirect()->route('tasks.index'));
+
 //Tablero con las tareas agrupadas por estados filtro y buscador
 Route::get('tasks',[TasksController::class,'index'])->name('tasks.index');
 //Formulario para crear una nueva tarea

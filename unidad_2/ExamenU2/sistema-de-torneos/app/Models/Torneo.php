@@ -18,7 +18,7 @@ class Torneo extends Model
     ] ;
 
     protected $casts = [
-        "fecha_futura"=> "dateTime",
+        "fecha_futura"=> "datetime",
         "cupo"=> "integer",
         "estado"=> "boolean",
     ];

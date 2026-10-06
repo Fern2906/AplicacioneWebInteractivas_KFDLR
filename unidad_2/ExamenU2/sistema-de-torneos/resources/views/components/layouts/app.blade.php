@@ -18,7 +18,7 @@
         @livewireStyles
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased">
-        <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+            <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
             <flux:brand href="#" logo="https://uxwing.com/wp-content/themes/uxwing/download/sport-and-awards/medal-color-icon.png" name="Torneos" class="max-lg:hidden dark:hidden" />
             <flux:brand href="#" logo="https://uxwing.com/wp-content/themes/uxwing/download/sport-and-awards/medal-color-icon.png" name="Torneos" class="max-lg:hidden! hidden dark:flex" />

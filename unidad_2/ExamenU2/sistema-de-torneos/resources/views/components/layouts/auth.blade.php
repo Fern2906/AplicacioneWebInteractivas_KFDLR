@@ -13,20 +13,26 @@
         @fluxAppearance
         @livewireStyles
     </head>
-    <body class="min-h-screen bg-white antialiased">
-        <flux:main>
+    <body class="min-h-screen bg-zinc-50 dark:bg-zinc-900 antialiased">
+
+        <div class="flex min-h-screen flex-col items-center justify-center px-4 py-12">
+
             <div class="mb-8 text-center">
-                <flux:heading size="xxl">
+                <flux:heading size="xl">
                     {{ config('app.name', 'Torneos') }}
                 </flux:heading>
                 @isset($subheading)
                     <flux:subheading class="mt-1">{{ $subheading }}</flux:subheading>
                 @endisset
             </div>
-            <flux:card body="divided" variant="soft">
-                {{ $slot }}
-            </flux:card>
-        </flux:main>
+
+            <div class="w-full max-w-sm">
+                <flux:card body="inset" variant="soft" size="lg">
+                    {{ $slot }}
+                </flux:card>
+            </div>
+
+        </div>
 
         @fluxScripts
         @livewireScripts

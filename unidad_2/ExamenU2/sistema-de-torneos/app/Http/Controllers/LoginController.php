@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class LoginController extends Controller
@@ -30,11 +30,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('welcome');
+
+            return redirect()->route('dashboard');
         }
 
         return back()->withErrors([
-            'credentials'=> 'Los datos ingresados son incorrectos.'
+            'credentials' => 'Los datos ingresados son incorrectos.',
         ]);
     }
 
@@ -47,10 +48,10 @@ class LoginController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'confirmed', 'min:8'],
-        ],[
-            'name'=> 'El nombre es excede el numero de caracteres permitidos (255)',
-            'email'=> 'Ya existe una cuenta con este correo',
-            'password'=> 'Debe tener al menos 8 caracteres',
+        ], [
+            'name' => 'El nombre es excede el numero de caracteres permitidos (255)',
+            'email' => 'Ya existe una cuenta con este correo',
+            'password' => 'Debe tener al menos 8 caracteres',
         ]);
 
         $user = User::create([
@@ -60,6 +61,7 @@ class LoginController extends Controller
         ]);
 
         auth()->login($user);
+
         return redirect('login');
     }
 }

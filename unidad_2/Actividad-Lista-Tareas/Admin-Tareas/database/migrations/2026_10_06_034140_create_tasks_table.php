@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('titulo', 255);
             $table->text('descripcion')->nullable();
             $table->string('estado', 20)->default('por_hacer')->index();
-            $table->string('pioridad', 20)->default('media')->index();
+            $table->string('prioridad', 20)->default('media')->index();
             $table->date('vencimiento')->nullable();
-            
+            $table->timestamps();
         });
     }
 

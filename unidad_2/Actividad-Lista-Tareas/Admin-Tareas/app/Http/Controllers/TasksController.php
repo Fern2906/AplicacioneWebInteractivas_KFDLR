@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Task;
+use App\Models\Tasks;
 use Illuminate\Http\Request;
 
 class TasksController extends Controller
 {
     public function index(Request $peticion)
     {
-        $consulta = Task::query();
+        $consulta = Tasks::query();
 
-        if (array_key_exists($peticion->query('estado'), Task::ESTADOS)) {
+        if (array_key_exists($peticion->query('estado'), Tasks::ESTADOS)) {
             $consulta->where('estado', $peticion->query('estado'));
         }
 
-        if (array_key_exists($peticion->query('prioridad'), Task::PRIORIDADES)) {
+        if (array_key_exists($peticion->query('prioridad'), Tasks::PRIORIDADES)) {
             $consulta->where('prioridad', $peticion->query('prioridad'));
         }
 
@@ -25,19 +25,19 @@ class TasksController extends Controller
 
         $tareas = $consulta->orderByDesc('created_at')->get()->groupBy('estado');
 
-        return view('tasks.index', [
+        return view('Taskss.index', [
             'tareasPorEstado' => $tareas,
-            'estados' => Task::ESTADOS,
-            'prioridades' => Task::PRIORIDADES,
+            'estados' => Tasks::ESTADOS,
+            'prioridades' => Tasks::PRIORIDADES,
             'filtros' => $peticion->only(['estado', 'prioridad', 'q']),
         ]);
     }
 
     public function create()
     {
-        return view('tasks.create', [
-            'estados' => Task::ESTADOS,
-            'prioridades' => Task::PRIORIDADES,
+        return view('Taskss.create', [
+            'estados' => Tasks::ESTADOS,
+            'prioridades' => Tasks::PRIORIDADES,
         ]);
     }
 
@@ -45,55 +45,55 @@ class TasksController extends Controller
     {
         $datos = $this->validar($peticion);
 
-        Task::create($datos);
+        Tasks::create($datos);
 
-        return redirect()->route('tasks.index')->with('exito', 'Tarea creada.');
+        return redirect()->route('Taskss.index')->with('exito', 'Tarea creada.');
     }
 
-    public function show(Task $task)
+    public function show(Tasks $Tasks)
     {
-        return view('tasks.show', [
-            'tarea' => $task,
-            'estados' => Task::ESTADOS,
-            'prioridades' => Task::PRIORIDADES,
+        return view('Taskss.show', [
+            'tarea' => $Tasks,
+            'estados' => Tasks::ESTADOS,
+            'prioridades' => Tasks::PRIORIDADES,
         ]);
     }
 
-    public function edit(Task $task)
+    public function edit(Tasks $Tasks)
     {
-        return view('tasks.edit', [
-            'tarea' => $task,
-            'estados' => Task::ESTADOS,
-            'prioridades' => Task::PRIORIDADES,
+        return view('Taskss.edit', [
+            'tarea' => $Tasks,
+            'estados' => Tasks::ESTADOS,
+            'prioridades' => Tasks::PRIORIDADES,
         ]);
     }
 
-    public function update(Request $peticion, Task $task)
+    public function update(Request $peticion, Tasks $Tasks)
     {
         $datos = $this->validar($peticion);
 
-        $task->update($datos);
+        $Tasks->update($datos);
 
-        return redirect()->route('tasks.index')->with('exito', 'Tarea actualizada.');
+        return redirect()->route('Taskss.index')->with('exito', 'Tarea actualizada.');
     }
 
-    public function destroy(Task $task)
+    public function destroy(Tasks $Tasks)
     {
-        $task->delete();
+        $Tasks->delete();
 
-        return redirect()->route('tasks.index')->with('exito', 'Tarea eliminada.');
+        return redirect()->route('Taskss.index')->with('exito', 'Tarea eliminada.');
     }
 
-    public function changeStatus(Request $peticion, Task $task)
+    public function changeStatus(Request $peticion, Tasks $Tasks)
     {
         $datos = $peticion->validate(
             ['estado' => 'required|in:por_hacer,en_curso,hecha'],
             ['estado.required' => 'El estado es obligatorio.', 'estado.in' => 'El estado no es válido.']
         );
 
-        $task->update($datos);
+        $Tasks->update($datos);
 
-        return redirect()->route('tasks.index')->with('exito', 'Estado actualizado.');
+        return redirect()->route('Taskss.index')->with('exito', 'Estado actualizado.');
     }
 
     protected function validar(Request $peticion): array

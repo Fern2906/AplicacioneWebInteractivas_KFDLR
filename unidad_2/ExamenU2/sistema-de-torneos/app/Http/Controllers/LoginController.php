@@ -60,8 +60,21 @@ class LoginController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        auth()->login($user);
+        Auth::login($user);
 
         return redirect('login');
+    }
+
+    /**
+     * Cierra la sesión del usuario.
+     */
+    public function destroy(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }

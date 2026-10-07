@@ -20,4 +20,6 @@ Route::get('register', function () {
 
 Route::post('register', [LoginController::class, 'register'])->name('register.store');
 
-Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('auth');
+
+Route::post('logout', [LoginController::class, 'destroy'])->name('logout')->middleware('auth');

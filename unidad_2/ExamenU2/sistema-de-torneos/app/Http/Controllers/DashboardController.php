@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Torneo;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -11,7 +12,8 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('Dashboard');
+        $data = Torneo::all();
+        return view('Dashboard', compact('data'));
     }
 
     /**

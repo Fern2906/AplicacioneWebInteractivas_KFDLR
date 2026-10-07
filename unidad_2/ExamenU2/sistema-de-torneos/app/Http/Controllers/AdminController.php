@@ -23,6 +23,7 @@ class AdminController extends Controller
             'cupo' => ['required', 'integer', 'min:2', 'max:100'],
             'estado' => ['required', 'in:0,1'],
             'juego' => ['required', 'string'],
+            'descripcion'=> ['string'],
         ], [
             'nombre.required' => 'Es necesario el nombre para el torneo',
 
@@ -37,6 +38,8 @@ class AdminController extends Controller
             'estado.in' => 'El estado seleccionado no es válido',
 
             'juego.required' => 'Es necesario que escribas un juego',
+
+            'descripcion'=> 'La descripcion debe ser texto',
         ]);
 
         Torneo::create($data);

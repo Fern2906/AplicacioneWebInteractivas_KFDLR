@@ -25,26 +25,29 @@
             </flux:navbar>
             <flux:spacer />
             <flux:navbar class="me-4">
-                <flux:navbar.item icon="magnifying-glass" href="#" label="Search" />
-                <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />
-                <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
+                <flux:navbar.item icon="magnifying-glass" href="#" />
+                <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#"/>
+                <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#"/>
             </flux:navbar>
             @if(auth()->check())
                 <flux:dropdown position="bottom" align="end">
                     <flux:profile avatar="https://fluxui.dev/img/demo/user.png" name="Olivia Martin" />
                     <flux:menu>
-                        <flux:menu.radio.group>
                         <flux:menu.separator />
-                        <flux:menu.item icon="arrow-right-start-on-rectangle">
-                            <form method="POST" action="{{ route('logout') }}" class="w-full">
-                                @csrf
-                                <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-red-600 dark:text-red-400">
-                                    Cerrar sesión
-                                </flux:menu.item>
-                            </form>
-                        </flux:menu.item>
+                        <form method="POST" action="{{ route('logout') }}" class="w-full">
+                            @csrf
+                            <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-red-600 dark:text-red-400">
+                                Cerrar sesión
+                            </flux:menu.item>
+                        </form>
                     </flux:menu>
                 </flux:dropdown>
+            @else
+                <flux:navbar class="-mb-px max-lg:hidden">
+                <flux:navbar.item href="{{ route('login') }}" icon="user">
+                    Iniciar sesión
+                 </flux:navbar.item>
+            </flux:navbar>
             @endif
         </flux:header>
         <flux:sidebar sticky collapsible="mobile" class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">

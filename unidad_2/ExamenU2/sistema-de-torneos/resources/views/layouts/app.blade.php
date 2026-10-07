@@ -1,7 +1,3 @@
-@guest
-    
-@endguest
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -28,8 +24,10 @@
             <flux:brand href="#" logo="https://uxwing.com/wp-content/themes/uxwing/download/sport-and-awards/medal-color-icon.png" name="Torneos" class="max-lg:hidden! hidden dark:flex" />
             <flux:navbar class="-mb-px max-lg:hidden">
                 <flux:navbar.item icon="home" href="#" current>Inicio</flux:navbar.item>
+                @if(auth()->check())
                 <flux:navbar.item icon="document-text" href="#">Mis Torneos</flux:navbar.item>
                 <flux:navbar.item icon="calendar" href="#">Inscribirme</flux:navbar.item>
+                @endif
             </flux:navbar>
             <flux:spacer />
             <flux:navbar class="me-4">
@@ -37,6 +35,7 @@
                 <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#" label="Settings" />
                 <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#" label="Help" />
             </flux:navbar>
+            @if(auth()->check())
             <flux:dropdown position="bottom" align="end">
                 <flux:profile avatar="https://fluxui.dev/img/demo/user.png" name="Olivia Martin" />
                 <flux:menu>
@@ -45,6 +44,7 @@
                     <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
                 </flux:menu>
             </flux:dropdown>
+            @endif
         </flux:header>
         <flux:sidebar sticky collapsible="mobile" class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
             <flux:sidebar.header>
@@ -58,12 +58,16 @@
             </flux:sidebar.header>
             <flux:sidebar.nav>
                 <flux:sidebar.item icon="home" href="#" current>Inicio</flux:sidebar.item>
+                @if(auth()->check())
                 <flux:sidebar.item icon="inbox" badge="12" href="#">Mis torneos</flux:sidebar.item>
                 <flux:sidebar.item icon="document-text" href="#">Inscribirme</flux:sidebar.item>
+                @endif
             </flux:sidebar.nav>
             <flux:sidebar.spacer />
             <flux:sidebar.nav>
+                @if(auth()->check())
                 <flux:sidebar.item icon="cog-6-tooth" href="#">Settings</flux:sidebar.item>
+                @endif
                 <flux:sidebar.item icon="information-circle" href="#">Help</flux:sidebar.item>
             </flux:sidebar.nav>
         </flux:sidebar>

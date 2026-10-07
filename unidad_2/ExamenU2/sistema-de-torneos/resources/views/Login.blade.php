@@ -30,9 +30,13 @@
             </form>
             <flux:separator class="my-7" />
 
-            <flux:text class="text-center">
+            <flux:text class="grid-2 text-center">
                 ¿No tienes cuenta?
                 <flux:link href="{{ route('register') }}">Regístrate</flux:link>
+            </flux:text>
+            <flux:text class="text-center">
+                Continuar como
+                <flux:link href="{{ route('dashboard') }}">invitado</flux:link>
             </flux:text>
         </flux:card.footer>
     </form>

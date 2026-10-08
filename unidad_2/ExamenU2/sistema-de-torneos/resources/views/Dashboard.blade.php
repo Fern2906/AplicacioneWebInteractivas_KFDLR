@@ -7,7 +7,7 @@
     <flux:heading size="xl" level="1">
         Bienvenido
     </flux:heading>
-        @endauth
+    @endauth
     <flux:text class="mt-2 mb-6 text-base">
         Aquí tienes las novedades de hoy.
     </flux:text>

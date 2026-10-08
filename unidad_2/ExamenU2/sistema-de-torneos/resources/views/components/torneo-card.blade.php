@@ -5,10 +5,10 @@
         <flux:card.heading size="lg">
             {{ $torneo['nombre'] }}
         </flux:card.heading>
-        @if(auth()->check())
+        @auth
             @if(auth()->user()->rol === 'administrador')
                 <flux:card.actions>
-                    <flux:button size="sm" variant="outline">
+                    <flux:button size="sm" variant="outline" icon="pencil-square">
                         Editar
                     </flux:button>
                 </flux:card.actions>
@@ -19,7 +19,7 @@
                     </flux:button>
                 </flux:card.actions>
             @endif
-        @endif
+        @endauth
     </flux:card.header>
 
     <flux:card.body>
@@ -57,11 +57,16 @@
 
         <flux:separator variant="subtle" class="my-4" />
 
-        <div>
-            <flux:text size="sm" class="text-zinc-500">Descripción</flux:text>
-            <flux:text class="mt-1">
-                {{ $torneo['descripcion'] ?: 'Sin descripción' }}
-            </flux:text>
+        <div class="flex justify-between items-center w-full">
+            <div>
+                <flux:text size="sm" class="text-zinc-500">Descripción</flux:text>
+                <flux:text class="mt-1">
+                    {{ $torneo['descripcion'] ?: 'Sin descripción' }}
+                </flux:text>
+            </div>
+            <flux:button size="sm" variant="outline" icon="eye">
+                Ver
+            </flux:button>
         </div>
     </flux:card.body>
 </flux:card>

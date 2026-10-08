@@ -18,7 +18,7 @@
             <flux:brand href="#" logo="https://uxwing.com/wp-content/themes/uxwing/download/sport-and-awards/medal-color-icon.png" name="Torneos" class="max-lg:hidden! hidden dark:flex" />
             <flux:navbar class="-mb-px max-lg:hidden">
                 <flux:navbar.item icon="home" href="{{ route('dashboard') }}" current>Inicio</flux:navbar.item>
-                @if(auth()->check())
+                @auth
                     @if(auth()->user()->rol === 'administrador')
                         <flux:navbar.item icon="calendar" href="{{ route('createtournament') }}">
                             Crear torneo
@@ -28,7 +28,7 @@
                             Mis Torneos
                         </flux:navbar.item>
                     @endif
-                @endif
+                @endauth
             </flux:navbar>
             <flux:spacer />
             <flux:navbar class="me-4">
@@ -36,9 +36,9 @@
                 <flux:navbar.item class="max-lg:hidden" icon="cog-6-tooth" href="#"/>
                 <flux:navbar.item class="max-lg:hidden" icon="information-circle" href="#"/>
             </flux:navbar>
-            @if(auth()->check())
+            @auth
                 <flux:dropdown position="bottom" align="end">
-                    <flux:profile avatar="https://fluxui.dev/img/demo/user.png" name="{{auth()->user()->name}}" />
+                    <flux:profile avatar="https://fluxui.dev/img/demo/user.png" name="{{ auth()->user()->name }}" />
                     <flux:menu>
                         <flux:menu.separator />
                         <form method="POST" action="{{ route('logout') }}" class="w-full">
@@ -51,12 +51,14 @@
                 </flux:dropdown>
             @else
                 <flux:navbar class="-mb-px max-lg:hidden">
-                <flux:navbar.item href="{{ route('login') }}" icon="user">
-                    Iniciar sesión
-                 </flux:navbar.item>
-            </flux:navbar>
-            @endif
+                    <flux:navbar.item href="{{ route('login') }}" icon="user">
+                        Iniciar sesión
+                    </flux:navbar.item>
+                </flux:navbar>
+            @endauth
         </flux:header>
+
+        {{-- Sidebar para móviles --}}
         <flux:sidebar sticky collapsible="mobile" class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
             <flux:sidebar.header>
                 <flux:sidebar.brand
@@ -67,31 +69,49 @@
                 />
                 <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
             </flux:sidebar.header>
+
             <flux:sidebar.nav>
                 <flux:sidebar.item icon="home" href="{{ route('dashboard') }}" current>Inicio</flux:sidebar.item>
-                @if(auth()->check())
-                     @if(auth()->user()->rol === 'administrador')
-                        <flux:navbar.item icon="calendar" href="{{ route('createtournament') }}">
+                @auth
+                    @if(auth()->user()->rol === 'administrador')
+                        <flux:sidebar.item icon="calendar" href="{{ route('createtournament') }}">
                             Crear torneo
-                        </flux:navbar.item>
+                        </flux:sidebar.item>
                     @elseif(auth()->user()->rol === 'jugador')
-                        <flux:navbar.item icon="document-text" href="#">
+                        <flux:sidebar.item icon="document-text" href="#">
                             Mis Torneos
-                        </flux:navbar.item>
+                        </flux:sidebar.item>
                     @endif
-                @endif
+                @endauth
             </flux:sidebar.nav>
+
             <flux:sidebar.spacer />
+
             <flux:sidebar.nav>
-                @if(auth()->check())
-                    <flux:sidebar.item icon="cog-6-tooth" href="#">Settings</flux:sidebar.item>
-                @endif
-                <flux:sidebar.item icon="information-circle" href="#">Help</flux:sidebar.item>
+                @auth
+                    <flux:sidebar.item icon="cog-6-tooth" href="#">Ajustes</flux:sidebar.item>
+                @endauth
+                <flux:sidebar.item icon="information-circle" href="#">Ayuda</flux:sidebar.item>
+
+                @auth
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <flux:sidebar.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-red-600 dark:text-red-400">
+                            Cerrar sesión
+                        </flux:sidebar.item>
+                    </form>
+                @else
+                    <flux:sidebar.item href="{{ route('login') }}" icon="user">
+                        Iniciar sesión
+                    </flux:sidebar.item>
+                @endauth
             </flux:sidebar.nav>
         </flux:sidebar>
-            <flux:main container>
+
+        <flux:main container>
             {{ $slot }}
         </flux:main>
+
         @fluxScripts
         @livewireScripts
     </body>

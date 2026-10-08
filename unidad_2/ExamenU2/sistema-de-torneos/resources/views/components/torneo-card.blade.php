@@ -12,6 +12,12 @@
                         Editar
                     </flux:button>
                 </flux:card.actions>
+            @else
+                <flux:card.actions>
+                    <flux:button size="sm" variant="primary" icon="plus-circle">
+                        Inscribirse
+                    </flux:button>
+                </flux:card.actions>
             @endif
         @endif
     </flux:card.header>

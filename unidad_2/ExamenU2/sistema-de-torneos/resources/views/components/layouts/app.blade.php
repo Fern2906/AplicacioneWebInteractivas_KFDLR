@@ -68,10 +68,17 @@
                 <flux:sidebar.collapse class="in-data-flux-sidebar-on-desktop:not-in-data-flux-sidebar-collapsed-desktop:-mr-2" />
             </flux:sidebar.header>
             <flux:sidebar.nav>
-                <flux:sidebar.item icon="home" href="#" current>Inicio</flux:sidebar.item>
+                <flux:sidebar.item icon="home" href="{{ route('dashboard') }}" current>Inicio</flux:sidebar.item>
                 @if(auth()->check())
-                    <flux:sidebar.item icon="inbox" badge="12" href="#">Mis torneos</flux:sidebar.item>
-                    <flux:sidebar.item icon="document-text" href="#">Inscribirme</flux:sidebar.item>
+                     @if(auth()->user()->rol === 'administrador')
+                        <flux:navbar.item icon="calendar" href="{{ route('createtournament') }}">
+                            Crear torneo
+                        </flux:navbar.item>
+                    @elseif(auth()->user()->rol === 'jugador')
+                        <flux:navbar.item icon="document-text" href="#">
+                            Mis Torneos
+                        </flux:navbar.item>
+                    @endif
                 @endif
             </flux:sidebar.nav>
             <flux:sidebar.spacer />

@@ -1,4 +1,4 @@
-@props(['torneo'])
+@props(['torneo', 'yaInscrito' => false])
 
 <flux:card>
     <flux:card.header>
@@ -8,15 +8,32 @@
         @auth
             @if(auth()->user()->rol === 'administrador')
                 <flux:card.actions>
-                    <flux:button size="sm" variant="outline" icon="pencil-square">
+                    <flux:button
+                        size="sm"
+                        variant="outline"
+                        icon="pencil-square"
+                        href="{{ route('tournamentform.edit', $torneo['id']) }}"
+                    >
                         Editar
                     </flux:button>
+                    <form method="POST" action="{{ route('tournamentform.destroy', $torneo['id']) }}">
+                        @csrf
+                        @method('DELETE')
+                        <flux:button type="submit" size="sm" variant="danger" icon="trash">Eliminar</flux:button>
+                    </form>
                 </flux:card.actions>
-            @else
+            @elseif(auth()->user()->rol === 'jugador')
                 <flux:card.actions>
-                    <flux:button size="sm" variant="primary" icon="plus-circle">
-                        Inscribirse
-                    </flux:button>
+                    @if($yaInscrito || ($torneo['ya_inscrito'] ?? false))
+                        <flux:badge color="green">Ya inscrito</flux:badge>
+                    @elseif($torneo['estado'] && !\Carbon\Carbon::parse($torneo['fecha_futura'])->isPast() && ($torneo['inscripciones_count'] ?? 0) < $torneo['cupo'])
+                        <form method="POST" action="{{ route('inscripcion.store', $torneo['id']) }}">
+                            @csrf
+                            <flux:button type="submit" size="sm" variant="primary" icon="plus-circle">Inscribirse</flux:button>
+                        </form>
+                    @else
+                        <flux:badge color="zinc">No disponible</flux:badge>
+                    @endif
                 </flux:card.actions>
             @endif
         @endauth
@@ -64,7 +81,7 @@
                     {{ $torneo['descripcion'] ?: 'Sin descripción' }}
                 </flux:text>
             </div>
-            <flux:button size="sm" variant="outline" icon="eye">
+            <flux:button size="sm" variant="outline" icon="eye" href="{{ route('torneo.show', $torneo['id']) }}">
                 Ver
             </flux:button>
         </div>

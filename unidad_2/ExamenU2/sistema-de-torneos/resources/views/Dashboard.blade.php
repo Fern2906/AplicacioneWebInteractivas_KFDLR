@@ -14,7 +14,7 @@
     <flux:separator variant="subtle" />
     <div class="m-5 grid-cols-4 gap-6 sm:grid-cols-1">
         @foreach ($data as $torneo)
-            <x-torneo-card :torneo="$torneo" />
+            <x-torneo-card :torneo="$torneo" :yaInscrito="$torneo->ya_inscrito ?? false" />
         @endforeach
         </div>
 </x-layouts.app>

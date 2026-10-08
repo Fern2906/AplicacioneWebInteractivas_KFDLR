@@ -2,18 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Model;
 
 #[Fillable(['user_id', 'torneo_id'])]
 class Inscripciones extends Model
 {
-    protected $table = "inscripciones";
+    protected $table = 'inscripciones';
 
     protected $casts = [
-        "user_id"=> "integer",
-        "torneo-id"=> "integer",
-    ] ;
+        'user_id' => 'integer',
+        'torneo_id' => 'integer',
+    ];
 
     public function user()
     {

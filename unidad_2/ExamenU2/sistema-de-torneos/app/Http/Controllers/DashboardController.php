@@ -3,65 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Torneo;
-use Illuminate\Http\Request;
-use App\Models\Inscripciones;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        $data = Torneo::withCount('inscripciones')->get();
+        $user = auth()->user();
+        $isAdmin = $user && $user->rol === 'administrador';
+
+        if (! $isAdmin) {
+            $data = Torneo::withCount('inscripciones')
+                ->where('estado', true)
+                ->where('fecha_futura', '>', now())
+                ->orderBy('fecha_futura', 'asc')
+                ->get()
+                ->filter(fn ($torneo) => $torneo->inscripciones_count < $torneo->cupo)
+                ->values();
+        } else {
+            $data = Torneo::withCount('inscripciones')->get();
+        }
+
+        if ($user) {
+            $userInscripcionIds = $user->inscripciones()->pluck('torneo_id')->toArray();
+            $data = $data->map(function ($torneo) use ($userInscripcionIds) {
+                $torneo->ya_inscrito = in_array($torneo->id, $userInscripcionIds);
+
+                return $torneo;
+            });
+        } else {
+            $data = $data->map(function ($torneo) {
+                $torneo->ya_inscrito = false;
+
+                return $torneo;
+            });
+        }
+
         return view('Dashboard', compact('data'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

@@ -20,11 +20,11 @@
                 <flux:navbar.item icon="home" href="{{ route('dashboard') }}" current>Inicio</flux:navbar.item>
                 @auth
                     @if(auth()->user()->rol === 'administrador')
-                        <flux:navbar.item icon="calendar" href="{{ route('createtournament') }}">
+                        <flux:navbar.item icon="calendar" href="{{ route('tournamentform') }}">
                             Crear torneo
                         </flux:navbar.item>
                     @elseif(auth()->user()->rol === 'jugador')
-                        <flux:navbar.item icon="document-text" href="#">
+                        <flux:navbar.item icon="document-text" href="{{ route('mis-torneos') }}">
                             Mis Torneos
                         </flux:navbar.item>
                     @endif
@@ -58,6 +58,17 @@
             @endauth
         </flux:header>
 
+        @if(session('success'))
+            <flux:callout variant="success" icon="check-circle" class="mx-auto max-w-7xl px-4 mt-4">
+                <flux:callout.text>{{ session('success') }}</flux:callout.text>
+            </flux:callout>
+        @endif
+        @if(session('error'))
+            <flux:callout variant="danger" icon="x-circle" class="mx-auto max-w-7xl px-4 mt-4">
+                <flux:callout.text>{{ session('error') }}</flux:callout.text>
+            </flux:callout>
+        @endif
+
         {{-- Sidebar para móviles --}}
         <flux:sidebar sticky collapsible="mobile" class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-700">
             <flux:sidebar.header>
@@ -74,11 +85,11 @@
                 <flux:sidebar.item icon="home" href="{{ route('dashboard') }}" current>Inicio</flux:sidebar.item>
                 @auth
                     @if(auth()->user()->rol === 'administrador')
-                        <flux:sidebar.item icon="calendar" href="{{ route('createtournament') }}">
+                        <flux:sidebar.item icon="calendar" href="{{ route('tournamentform') }}">
                             Crear torneo
                         </flux:sidebar.item>
                     @elseif(auth()->user()->rol === 'jugador')
-                        <flux:sidebar.item icon="document-text" href="#">
+                        <flux:sidebar.item icon="document-text" href="{{ route('mis-torneos') }}">
                             Mis Torneos
                         </flux:sidebar.item>
                     @endif

@@ -34,6 +34,11 @@
             </div>
 
             <div>
+                <flux:text size="sm" class="text-zinc-500">Inscritos</flux:text>
+                {{ $torneo['inscripciones_count'] ?? $torneo['inscritos_count'] ?? 0 }} / {{ $torneo['cupo'] }} jugadores
+            </div>
+
+            <div>
                 <flux:text size="sm" class="text-zinc-500">Estado</flux:text>
                 <flux:badge
                     :color="$torneo['estado'] ? 'green' : 'red'"

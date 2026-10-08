@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Torneo;
 use Illuminate\Http\Request;
+use App\Models\Inscripciones;
 
 class DashboardController extends Controller
 {
@@ -12,7 +13,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = Torneo::all();
+        $data = Torneo::withCount('inscripciones')->get();
         return view('Dashboard', compact('data'));
     }
 

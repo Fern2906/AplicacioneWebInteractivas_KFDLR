@@ -38,7 +38,7 @@
             </flux:navbar>
             @if(auth()->check())
                 <flux:dropdown position="bottom" align="end">
-                    <flux:profile avatar="https://fluxui.dev/img/demo/user.png" name="Olivia Martin" />
+                    <flux:profile avatar="https://fluxui.dev/img/demo/user.png" name="{{auth()->user()->name}}" />
                     <flux:menu>
                         <flux:menu.separator />
                         <form method="POST" action="{{ route('logout') }}" class="w-full">

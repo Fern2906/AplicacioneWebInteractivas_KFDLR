@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Inscripciones;
 
 #[Fillable(['nombre', 'juego', 'fecha_futura', 'cupo', 'descripcion', 'estado'])]
 class Torneo extends Model
@@ -15,6 +16,11 @@ class Torneo extends Model
         'cupo' => 'integer',
         'estado' => 'boolean',
     ];
+
+    public function inscripciones()
+    {
+        return $this->hasMany(Inscripciones::class, 'torneo_id');
+    }
 
     public function estaVencida(): bool
     {

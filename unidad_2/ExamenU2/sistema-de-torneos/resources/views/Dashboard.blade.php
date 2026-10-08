@@ -12,9 +12,9 @@
         Aquí tienes las novedades de hoy.
     </flux:text>
     <flux:separator variant="subtle" />
-    <div class="m-5 grid-cols-4 gap-6 sm:grid-cols-1">
+    <div class="m-1 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         @foreach ($data as $torneo)
             <x-torneo-card :torneo="$torneo" :yaInscrito="$torneo->ya_inscrito ?? false" />
         @endforeach
-        </div>
+    </div>
 </x-layouts.app>

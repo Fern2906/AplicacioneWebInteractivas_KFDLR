@@ -38,7 +38,7 @@
             </flux:navbar>
             @auth
                 <flux:dropdown position="bottom" align="end">
-                    <flux:profile avatar="https://fluxui.dev/img/demo/user.png" name="{{ auth()->user()->name }}" />
+                    <flux:profile name="{{ auth()->user()->name }}" />
                     <flux:menu>
                         <flux:menu.separator />
                         <form method="POST" action="{{ route('logout') }}" class="w-full">
@@ -58,15 +58,20 @@
             @endauth
         </flux:header>
 
-        @if(session('success'))
-            <flux:callout variant="success" icon="check-circle" class="mx-auto max-w-7xl px-4 mt-4">
-                <flux:callout.text>{{ session('success') }}</flux:callout.text>
-            </flux:callout>
-        @endif
-        @if(session('error'))
-            <flux:callout variant="danger" icon="x-circle" class="mx-auto max-w-7xl px-4 mt-4">
-                <flux:callout.text>{{ session('error') }}</flux:callout.text>
-            </flux:callout>
+        @if(session('success') || session('error'))
+            <div class="fixed top-16 right-4 z-50 max-w-sm w-full space-y-2 pointer-events-auto">
+                @if(session('success'))
+                    <flux:callout variant="success" icon="check-circle" class="shadow-lg">
+                        <flux:callout.text>{{ session('success') }}</flux:callout.text>
+                    </flux:callout>
+                @endif
+
+                @if(session('error'))
+                    <flux:callout variant="danger" icon="x-circle" class="shadow-lg">
+                        <flux:callout.text>{{ session('error') }}</flux:callout.text>
+                    </flux:callout>
+                @endif
+            </div>
         @endif
 
         {{-- Sidebar para móviles --}}

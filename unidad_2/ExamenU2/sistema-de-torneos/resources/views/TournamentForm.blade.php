@@ -99,30 +99,35 @@
             @if(isset($inscritos) && $inscritos->isNotEmpty())
                 <flux:separator />
                 <div>
-                    <flux:heading size="lg">Jugadores inscritos</flux:heading>
-                    <flux:table class="mt-4">
-                        <flux:table.head>
-                            <flux:table.row>
-                                <flux:table.cell>Jugador</flux:table.cell>
-                                <flux:table.cell>Email</flux:table.cell>
-                                <flux:table.cell>Acción</flux:table.cell>
-                            </flux:table.row>
-                        </flux:table.head>
-                        <flux:table.body>
-                            @foreach($inscritos as $inscripcion)
-                                <flux:table.row>
-                                    <flux:table.cell>{{ $inscripcion->user->name }}</flux:table.cell>
-                                    <flux:table.cell>{{ $inscripcion->user->email }}</flux:table.cell>
-                                    <flux:table.cell>
-                                        <form method="POST" action="{{ route('inscripcion.destroy', $inscripcion) }}">
-                                            @csrf @method('DELETE')
-                                            <flux:button type="submit" size="sm" variant="danger">Dar de baja</flux:button>
-                                        </form>
-                                    </flux:table.cell>
-                                </flux:table.row>
-                            @endforeach
-                        </flux:table.body>
-                    </flux:table>
+                    <flux:heading size="lg" class="mb-4">Jugadores inscritos ({{ $inscritos->count() }})</flux:heading>
+                    <div class="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
+                        <table class="w-full text-sm">
+                            <thead class="bg-zinc-50 dark:bg-zinc-800">
+                                <tr>
+                                    <th class="px-4 py-3 text-left font-medium text-zinc-600 dark:text-zinc-400">Jugador</th>
+                                    <th class="px-4 py-3 text-left font-medium text-zinc-600 dark:text-zinc-400">Email</th>
+                                    <th class="px-4 py-3 text-left font-medium text-zinc-600 dark:text-zinc-400">Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-zinc-100 dark:divide-zinc-700">
+                                @foreach($inscritos as $inscripcion)
+                                    <tr class="bg-white dark:bg-zinc-900">
+                                        <td class="px-4 py-3 text-zinc-800 dark:text-zinc-200">{{ $inscripcion->user->name }}</td>
+                                        <td class="px-4 py-3 text-zinc-600 dark:text-zinc-400">{{ $inscripcion->user->email }}</td>
+                                        <td class="px-4 py-3">
+                                            <form method="POST" action="{{ route('inscripcion.destroy', $inscripcion) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <flux:button type="submit" size="sm" variant="filled" class="bg-red-600 hover:bg-red-700 text-white">
+                                                    Dar de baja
+                                                </flux:button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             @endif
 

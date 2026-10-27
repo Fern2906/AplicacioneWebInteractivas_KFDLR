@@ -6,19 +6,27 @@ use Livewire\Component;
 
 class Hero extends Component
 {
-    public string $status = 'Disponible para proyectos';
+    public string $status = 'Disponible para proyectos y colaboraciones';
+
     public string $greeting = 'Hola, soy';
-    public string $name = 'KFDLR';
-    public string $role = 'Desarrollador Web Full Stack';
-    public string $description = 'Construyo aplicaciones web claras, rápidas y mantenibles. Trabajo principalmente con Laravel, Livewire y Tailwind CSS, cuidando tanto la lógica del backend como la experiencia de usuario.';
+
+    public string $name = 'Kevin Fernando De León Ramírez';
+
+    public string $role = 'Estudiante de Ing. en Sistemas Inteligentes | Desarrollador Full-Stack';
+
+    public string $description = 'Estudiante en la Universidad Autónoma de San Luis Potosí enfocado en desarrollo Full-Stack y Sistemas Inteligentes. Construyo aplicaciones web modernas con Laravel y Livewire, apps móviles con Flutter y soluciones de Machine Learning con Python.';
+
     public string $avatarInitials = 'KF';
-    public string $badgeTitle = 'Portafolio 2026';
-    public string $badgeSubtitle = 'Proyectos y experiencia';
+
+    public string $badgeTitle = 'San Luis Potosí, México';
+
+    public string $badgeSubtitle = 'UASLP • Graduación esperada: Jul 2027';
 
     public array $techBadges = [
-        'Laravel + Livewire',
+        'Laravel & Livewire',
+        'Flutter & SQLite',
+        'Python & Scikit-Learn',
         'Tailwind CSS',
-        'Preline UI',
     ];
 
     public function render()

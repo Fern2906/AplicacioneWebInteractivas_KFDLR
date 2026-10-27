@@ -13,7 +13,7 @@
                 </a>
 
                 <p class="mt-4 max-w-xs text-sm text-gray-600 dark:text-neutral-400">
-                    Portafolio personal: proyectos y experiencia en desarrollo de aplicaciones web.
+                    Kevin Fernando De León Ramírez — Estudiante de Ingeniería en Sistemas Inteligentes y Desarrollador Full-Stack (San Luis Potosí, MX).
                 </p>
             </div>
 
@@ -35,7 +35,7 @@
         <div class="mt-8 border-t border-gray-200 pt-8 dark:border-neutral-700">
             <div class="flex flex-col items-center justify-between gap-y-4 sm:flex-row sm:gap-y-0">
                 <p class="text-sm text-gray-500 dark:text-neutral-400">
-                    © {{ $year }} KFDLR. Todos los derechos reservados.
+                    © {{ $year }} Kevin Fernando De León Ramírez. Todos los derechos reservados.
                 </p>
             </div>
         </div>

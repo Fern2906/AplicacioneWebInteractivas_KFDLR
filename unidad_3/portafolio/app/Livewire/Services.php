@@ -6,24 +6,26 @@ use Livewire\Component;
 
 class Services extends Component
 {
-    public string $sectionBadge = 'Servicios';
-    public string $title = 'En qué puedo ayudarte';
-    public string $description = 'Estas son las áreas en las que concentro mi trabajo.';
+    public string $sectionBadge = 'Áreas de enfoque';
+
+    public string $title = 'Soluciones en las que puedo ayudarte';
+
+    public string $description = 'Especialidades técnicas respaldadas por proyectos reales y formación en Sistemas Inteligentes.';
 
     public array $services = [
         [
-            'title' => 'Aplicaciones web',
-            'description' => 'Desarrollo con Laravel y Livewire: rutas, componentes reactivos, validación y lógica de negocio.',
+            'title' => 'Desarrollo Web Full-Stack',
+            'description' => 'Aplicaciones completas con Laravel, Livewire, Alpine.js y Tailwind CSS. Implementación de lógica de negocio, pruebas unitarias y generación de reportes interactivos.',
             'icon' => 'code',
         ],
         [
-            'title' => 'Interfaces',
-            'description' => 'Maquetación responsive con Tailwind CSS y componentes de Preline UI, con atención al detalle.',
+            'title' => 'Desarrollo Móvil con Flutter',
+            'description' => 'Creación de aplicaciones móviles para Android/iOS con Flutter, Dart y almacenamiento SQLite. Integración de mapas, geolocalización y APIs REST.',
             'icon' => 'sparkles',
         ],
         [
-            'title' => 'Datos y APIs',
-            'description' => 'Modelado de bases de datos, consultas con Eloquent y consumo o creación de APIs REST.',
+            'title' => 'Machine Learning y Redes',
+            'description' => 'Modelos predictivos y clasificación con Python y scikit-learn (SVM, Random Forest), complementado con experiencia en administración de redes y routers.',
             'icon' => 'database',
         ],
     ];

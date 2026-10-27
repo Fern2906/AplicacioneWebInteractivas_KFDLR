@@ -7,7 +7,9 @@ use Livewire\Component;
 class Tab extends Component
 {
     public string $label;
+
     public string $url;
+
     public bool $active = false;
 
     public function mount(string $label, string $url, bool $active = false): void
@@ -26,7 +28,7 @@ class Tab extends Component
             return $current === '';
         }
 
-        return request()->is($target) || request()->is($target . '/*');
+        return request()->is($target) || request()->is($target.'/*');
     }
 
     public function render()

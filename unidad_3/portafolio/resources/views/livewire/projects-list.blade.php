@@ -1,6 +1,6 @@
 <div class="mx-auto w-full max-w-5xl px-4 py-16">
     <header class="max-w-2xl">
-        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Projects</p>
+        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Proyectos</p>
         <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Proyectos</h1>
         <p class="mt-3 text-gray-600 dark:text-neutral-400">
             Una selección de los proyectos en los que he trabajado. Filtra por tipo para explorar.

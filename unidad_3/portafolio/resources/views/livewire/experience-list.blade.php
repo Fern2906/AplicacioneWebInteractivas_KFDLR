@@ -1,9 +1,9 @@
 <div class="mx-auto w-full max-w-5xl px-4 py-16">
     <header class="max-w-2xl">
-        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Experience</p>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Experiencia</h1>
+        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Trayectoria</p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Experiencia y Educación</h1>
         <p class="mt-3 text-gray-600 dark:text-neutral-400">
-            Un recorrido por mi trayectoria profesional y académica.
+            Un recorrido por mi trayectoria profesional, experiencia técnica en campo y formación académica.
         </p>
     </header>
 
@@ -47,9 +47,9 @@
     <div class="mt-16">
         <livewire:cta
             title="¿Quieres conocer más?"
-            description="Puedes revisar mis proyectos o escribirme directamente para conversar sobre una oportunidad."
+            description="Puedes explorar mis proyectos o escribirme directamente para platicar sobre una vacante o colaboración."
             button-text="Contactarme"
-            button-url="mailto:correo@ejemplo.com"
+            button-url="mailto:kevinfernando1906@outlook.com"
             secondary-button-text="Ver proyectos"
             :secondary-button-url="route('projects')"
         />

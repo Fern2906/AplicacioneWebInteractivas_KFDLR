@@ -5,7 +5,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Layout('layouts::portfolio')] #[Title('Experience')] class extends Component {
+new #[Layout('layouts::portfolio')] #[Title('Experiencia')] class extends Component {
     public string $filter = 'all';
 
     public array $filters = [
@@ -16,58 +16,49 @@ new #[Layout('layouts::portfolio')] #[Title('Experience')] class extends Compone
 
     public array $items = [
         [
-            'id' => 'freelance',
+            'id' => 'naesan-ventas',
             'type' => 'trabajo',
-            'period' => '2025 — Actualidad',
-            'title' => 'Desarrollador Full Stack Junior',
-            'organization' => 'Freelance',
-            'description' => 'Desarrollo de sitios y aplicaciones web a medida con Laravel, Livewire y Tailwind CSS, desde el modelado de datos hasta el despliegue.',
-            'tags' => ['Laravel', 'Livewire', 'Tailwind CSS'],
+            'period' => 'Mar 2025 – Jun 2025',
+            'title' => 'Vendedor y Gestión de Tienda de Mascotas',
+            'organization' => 'Naesan',
+            'description' => 'Venta y asesoramiento especializado a clientes para la selección de productos para sus mascotas, además de la administración, control y auditoría de inventario del local comercial.',
+            'tags' => ['Atención al Cliente', 'Ventas', 'Control de Inventario', 'Asesoramiento'],
         ],
         [
-            'id' => 'practicas',
+            'id' => 'gama-electrics-obra',
             'type' => 'trabajo',
-            'period' => '2025',
-            'title' => 'Prácticas de Desarrollo Web',
-            'organization' => 'Empresa de desarrollo de software',
-            'description' => 'Mantenimiento de módulos internos, corrección de errores y creación de nuevas vistas con Laravel y MySQL.',
-            'tags' => ['Laravel', 'MySQL', 'Git'],
+            'period' => 'Jul 2024 – Sep 2024',
+            'title' => 'Ayudante de Obra — Instalación Eléctrica',
+            'organization' => 'Gama Electrics — Proyecto Arena Potosí',
+            'description' => 'Instalación de redes eléctricas y sistemas de cableado en Arena Potosí, garantizando el cumplimiento de requerimientos del proyecto y administrando el inventario de materiales e insumos.',
+            'tags' => ['Instalación Eléctrica', 'Cableado', 'Arena Potosí', 'Gestión de Inventario'],
         ],
         [
-            'id' => 'universidad',
-            'type' => 'educacion',
-            'period' => '2023 — 2026',
-            'title' => 'Desarrollo de Aplicaciones Web',
-            'organization' => 'Universidad',
-            'description' => 'Formación en desarrollo web, bases de datos, programación orientada a objetos y proyectos de aplicación real.',
-            'tags' => ['PHP', 'Bases de datos', 'Ingeniería de software'],
-        ],
-        [
-            'id' => 'curso-livewire',
-            'type' => 'educacion',
-            'period' => '2025',
-            'title' => 'Curso de Laravel y Livewire',
-            'organization' => 'Formación online',
-            'description' => 'Componentes reactivos, validación, autorización, colas y buenas prácticas del ecosistema Laravel.',
-            'tags' => ['Laravel', 'Livewire', 'Testing'],
-        ],
-        [
-            'id' => 'proyectos-academicos',
+            'id' => 'gama-electrics-redes',
             'type' => 'trabajo',
-            'period' => '2024',
-            'title' => 'Desarrollador de Proyectos Académicos',
-            'organization' => 'Equipos de trabajo universitarios',
-            'description' => 'Colaboración en el diseño y desarrollo de aplicaciones para proyectos de curso, coordinando tareas y revisiones de código.',
-            'tags' => ['Trabajo en equipo', 'Git', 'Scrum'],
+            'period' => 'Jun 2024 – Jul 2024',
+            'title' => 'Ayudante de Administrador de Redes',
+            'organization' => 'Gama Electrics',
+            'description' => 'Administración y reorganización de direcciones IP y configuraciones de red por cliente, ajustándolas a la nueva reestructuración de la base de datos. Reconfiguración de routers de cada cliente para optimizar la eficiencia del servicio.',
+            'tags' => ['Administración de Redes', 'Direccionamiento IP', 'Routers', 'Bases de datos'],
         ],
         [
-            'id' => 'fundamentos',
+            'id' => 'uaslp-ingenieria',
             'type' => 'educacion',
-            'period' => '2022 — 2023',
-            'title' => 'Fundamentos de Programación',
-            'organization' => 'Formación autodidacta',
-            'description' => 'Primeros pasos en lógica de programación, HTML, CSS y JavaScript mediante cursos y proyectos personales.',
-            'tags' => ['HTML', 'CSS', 'JavaScript'],
+            'period' => 'Graduación esperada: Jul 2027',
+            'title' => 'Ingeniería en Sistemas Inteligentes',
+            'organization' => 'Universidad Autónoma de San Luis Potosí — San Luis Potosí, MX',
+            'description' => 'Formación universitaria en diseño de software, arquitectura de sistemas, desarrollo web y móvil, inteligencia artificial, modelos de machine learning y bases de datos relacionales.',
+            'tags' => ['Sistemas Inteligentes', 'UASLP', 'Machine Learning', 'Full-Stack'],
+        ],
+        [
+            'id' => 'idiomas',
+            'type' => 'educacion',
+            'period' => 'Competencia técnica',
+            'title' => 'Idiomas y Comunicación',
+            'organization' => 'Español e Inglés',
+            'description' => 'Español nativo e Inglés con nivel B1 (Intermedio), con habilidad para consultar documentación técnica especializada, participar en equipos multidisciplinarios y redactar especificaciones.',
+            'tags' => ['Español (Nativo)', 'Inglés (B1 — Intermedio)', 'Documentación Técnica'],
         ],
     ];
 
@@ -92,10 +83,10 @@ new #[Layout('layouts::portfolio')] #[Title('Experience')] class extends Compone
 
 <div class="mx-auto w-full max-w-5xl px-4 py-16">
     <header class="max-w-2xl">
-        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Experience</p>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Experiencia</h1>
+        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Trayectoria</p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Experiencia y Educación</h1>
         <p class="mt-3 text-gray-600 dark:text-neutral-400">
-            Un recorrido por mi trayectoria profesional y académica.
+            Un recorrido por mi trayectoria profesional, experiencia técnica en campo y formación académica.
         </p>
     </header>
 
@@ -139,11 +130,12 @@ new #[Layout('layouts::portfolio')] #[Title('Experience')] class extends Compone
     <div class="mt-16">
         <livewire:cta
             title="¿Quieres conocer más?"
-            description="Puedes revisar mis proyectos o escribirme directamente para conversar sobre una oportunidad."
+            description="Puedes explorar mis proyectos o escribirme directamente para platicar sobre una vacante o colaboración."
             button-text="Contactarme"
-            button-url="mailto:correo@ejemplo.com"
+            button-url="mailto:kevinfernando1906@outlook.com"
             secondary-button-text="Ver proyectos"
             :secondary-button-url="route('projects')"
         />
+    </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ use Livewire\Component;
 class Link extends Component
 {
     public string $url = '';
+
     public string $label = '';
 
     public function mount(string $url = '', string $label = ''): void

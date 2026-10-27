@@ -1,13 +1,12 @@
 <li class="relative mb-10 ms-6 last:mb-0">
-    <span class="absolute -start-[1.9rem] top-1 flex size-3.5 items-center justify-center rounded-full bg-blue-600 ring-4 ring-gray-50 dark:bg-blue-500 dark:ring-neutral-900"></span>
+    <span
+        class="absolute inset-s-[-1.9rem] top-1 flex size-3.5 items-center justify-center rounded-full bg-blue-600 ring-4 ring-gray-50 dark:bg-blue-500 dark:ring-neutral-900"></span>
 
     <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <span class="rounded-full px-2.5 py-0.5 text-xs font-medium
-            @if (($item['type'] ?? '') === 'trabajo')
-                bg-green-50 text-green-700 dark:bg-green-500/10 dark:text-green-400
-            @else
-                bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400
-            @endif">
+        <span
+            class="rounded-full px-2.5 py-0.5 text-xs font-medium
+            @if (($item['type'] ?? '') === 'trabajo') @else
+                bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 @endif">
             {{ ($item['type'] ?? '') === 'trabajo' ? 'Trabajo' : 'Educación' }}
         </span>
 
@@ -31,7 +30,8 @@
     @if (filled($item['tags'] ?? null))
         <ul class="mt-3 flex flex-wrap gap-1.5">
             @foreach ($item['tags'] as $tag)
-                <li class="rounded-full border border-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:border-neutral-600 dark:text-neutral-300">
+                <li
+                    class="rounded-full border border-gray-200 px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:border-neutral-600 dark:text-neutral-300">
                     {{ $tag }}
                 </li>
             @endforeach

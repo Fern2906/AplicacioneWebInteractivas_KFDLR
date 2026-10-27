@@ -12,7 +12,6 @@ class Footer extends Component
             'name' => 'Navegación',
             'links' => [
                 ['label' => 'Inicio', 'url' => '/'],
-                ['label' => 'Sobre mí', 'url' => '/about'],
                 ['label' => 'Proyectos', 'url' => '/projects'],
                 ['label' => 'Experiencia', 'url' => '/experience'],
             ],

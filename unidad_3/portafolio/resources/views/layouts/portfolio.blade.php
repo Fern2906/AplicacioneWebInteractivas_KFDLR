@@ -20,7 +20,7 @@
 </head>
 
 <body class="flex min-h-screen flex-col bg-gray-50 text-gray-800 antialiased dark:bg-neutral-900 dark:text-white">
-    <x-portfolio.navbar />
+    <livewire:navbar />
 
     <main class="flex-1">
         {{ $slot }}

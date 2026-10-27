@@ -3,13 +3,18 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use Livewire\Attributes\Url;
 
 class Link extends Component
 {
-    #[Url(as: 'url', history: true)]
-    public $url;
-    public string $label;
+    public string $url = '';
+    public string $label = '';
+
+    public function mount(string $url = '', string $label = ''): void
+    {
+        $this->url = $url;
+        $this->label = $label;
+    }
+
     public function render()
     {
         return view('livewire.link');

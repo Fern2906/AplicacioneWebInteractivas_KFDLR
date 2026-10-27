@@ -1,31 +1,34 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{{ filled($title ?? null) ? $title.' — Portafolio' : 'Portafolio' }}</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="icon" href="/favicon.ico" sizes="any">
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <title>{{ filled($title ?? null) ? $title . ' — Portafolio' : 'Portafolio' }}</title>
 
-        @fonts
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @fonts
 
-        @fluxAppearance
-        @livewireStyles
-    </head>
-    <body class="flex min-h-screen flex-col bg-gray-50 text-gray-800 antialiased dark:bg-neutral-900 dark:text-white">
-        <x-portfolio.navbar />
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-        <main class="flex-1">
-            {{ $slot }}
-        </main>
+    @fluxAppearance
+    @livewireStyles
+</head>
 
-        <x-portfolio.footer />
+<body class="flex min-h-screen flex-col bg-gray-50 text-gray-800 antialiased dark:bg-neutral-900 dark:text-white">
+    <x-portfolio.navbar />
 
-        @livewireScripts
-    </body>
+    <main class="flex-1">
+        {{ $slot }}
+    </main>
+
+    <livewire:footer />
+
+    @livewireScripts
+</body>
+
 </html>

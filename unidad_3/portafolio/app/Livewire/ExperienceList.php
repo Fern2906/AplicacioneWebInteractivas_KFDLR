@@ -10,9 +10,9 @@ class ExperienceList extends Component
     public string $filter = 'all';
 
     public array $filters = [
-        'all' => 'Todo',
-        'trabajo' => 'Trabajo',
-        'educacion' => 'Educación',
+        'all' => 'All',
+        'trabajo' => 'Work',
+        'educacion' => 'Education',
     ];
 
     public array $items = [

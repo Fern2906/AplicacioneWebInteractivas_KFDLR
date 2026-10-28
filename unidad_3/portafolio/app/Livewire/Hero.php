@@ -6,27 +6,30 @@ use Livewire\Component;
 
 class Hero extends Component
 {
-    public string $status = 'Disponible para proyectos y colaboraciones';
+    public string $status = 'Available for projects and collaborations';
 
-    public string $greeting = 'Hola, soy';
+    public string $greeting = "Hello, I'm";
 
     public string $name = 'Kevin Fernando De León Ramírez';
 
-    public string $role = 'Estudiante de Ing. en Sistemas Inteligentes | Desarrollador Full-Stack';
+    public string $role = 'Intelligent Systems Engineering Student | Applications Development Intern at Daikin Manufacturing México';
 
-    public string $description = 'Estudiante en la Universidad Autónoma de San Luis Potosí enfocado en desarrollo Full-Stack y Sistemas Inteligentes. Construyo aplicaciones web modernas con Laravel y Livewire, apps móviles con Flutter y soluciones de Machine Learning con Python.';
+    public string $description = 'Intelligent Systems Engineering student at UASLP and Software Developer in training, with experience in software development and web applications. 
+                                Currently working as an Applications Development Intern at Daikin Manufacturing México, contributing to software solutions for internal processes. 
+                                Interested in Software Engineering, Full-Stack Development, Backend Development, and Machine Learning, with a strong focus on continuous learning and problem solving.';
 
     public string $avatarInitials = 'KF';
 
-    public string $badgeTitle = 'San Luis Potosí, México';
+    public string $badgeTitle = 'Portfolio 2026';
 
-    public string $badgeSubtitle = 'UASLP • Graduación esperada: Jul 2027';
+    public string $badgeSubtitle = 'Projects & Experience';
 
     public array $techBadges = [
         'Laravel & Livewire',
-        'Flutter & SQLite',
-        'Python & Scikit-Learn',
-        'Tailwind CSS',
+        'React & Angular',
+        'Flutter & Mobile Apps',
+        'Python & Machine Learning',
+        'PHP & MySQL',
     ];
 
     public function render()

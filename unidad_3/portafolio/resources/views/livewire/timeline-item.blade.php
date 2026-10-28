@@ -7,7 +7,7 @@
             class="rounded-full px-2.5 py-0.5 text-xs font-medium
             @if (($item['type'] ?? '') === 'trabajo') @else
                 bg-blue-50 text-blue-700 dark:bg-blue-500/10 dark:text-blue-400 @endif">
-            {{ ($item['type'] ?? '') === 'trabajo' ? 'Trabajo' : 'Educación' }}
+            {{ ($item['type'] ?? '') === 'trabajo' ? 'Work' : 'Education' }}
         </span>
 
         <time class="text-xs font-medium text-gray-500 dark:text-neutral-400">

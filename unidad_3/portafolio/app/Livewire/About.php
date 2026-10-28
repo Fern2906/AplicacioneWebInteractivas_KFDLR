@@ -6,52 +6,42 @@ use Livewire\Component;
 
 class About extends Component
 {
-    public string $sectionBadge = 'Sobre mí';
+    public string $sectionBadge = 'About Me';
 
-    public string $title = 'Sistemas Inteligentes & Desarrollo Full-Stack';
+    public string $title = 'Intelligent Systems & Full-Stack Development';
 
     public array $paragraphs = [
-        '¡Hola! Soy Kevin Fernando De León Ramírez, estudiante de Ingeniería en Sistemas Inteligentes en la Universidad Autónoma de San Luis Potosí (graduación esperada: julio 2027) y desarrollador Full-Stack con sede en San Luis Potosí, México.',
-        'Me apasiona diseñar y materializar software de alto impacto: desde plataformas web robustas con Laravel, Livewire y Tailwind CSS (como el Sistema CACEI para la automatización de métricas de rendimiento escolar), hasta aplicaciones móviles multiplataforma en Flutter con SQLite y mapas interactivos (NUMI), así como modelos predictivos de Machine Learning en Python sobre datos astronómicos masivos.',
-        'Cuento además con experiencia en soporte y administración de redes IP, configuración de routers e instalaciones eléctricas, combinando sólidas bases técnicas con habilidades de adaptabilidad, pensamiento crítico, trabajo en equipo y aprendizaje continuo.',
+        "I'm Kevin Fernando De León Ramírez, an Intelligent Systems Engineering student at the Autonomous University of San Luis Potosí (UASLP) (expected graduation: July 2027) and a Software Developer in training based in San Luis Potosí, Mexico.",
+        'I am passionate about designing and building high-impact software solutions, from robust web platforms with Laravel, Livewire, and Tailwind CSS, to cross-platform mobile applications with Flutter and SQLite, as well as Machine Learning predictive models in Python.',
+        'Currently working as an Applications Development Intern at Daikin Manufacturing México, contributing to software solutions for internal processes. Previously, I worked as an intern at the Faculty of Chemical Sciences at UASLP, developing modules for its web system. I have a strong focus on continuous learning and problem solving.',
     ];
 
     public array $skills = [
         'Python',
         'JavaScript',
         'PHP',
-        'C / C++',
-        'Dart',
         'Laravel',
-        'Livewire',
-        'Tailwind CSS',
         'React',
         'Angular',
-        'Flutter',
-        'Android Studio',
         'MySQL',
-        'SQLite',
-        'scikit-learn',
-        'Jupyter',
+        'SQL',
         'Git',
-        'Figma',
-        'Jira',
     ];
 
     public array $softSkills = [
-        'Resolución de problemas',
-        'Trabajo en equipo',
-        'Pensamiento crítico',
-        'Adaptabilidad',
-        'Comunicación efectiva',
-        'Aprendizaje continuo',
-        'Organización',
-        'Creatividad',
+        'Problem Solving',
+        'Teamwork',
+        'Critical Thinking',
+        'Adaptability',
+        'Effective Communication',
+        'Continuous Learning',
+        'Organization',
+        'Creativity',
     ];
 
     public array $languages = [
-        'Español (Nativo)',
-        'Inglés (B1 — Intermedio)',
+        'Spanish (Native)',
+        'English (B1 - Intermediate)',
     ];
 
     public function render()

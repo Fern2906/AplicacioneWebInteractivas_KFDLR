@@ -1,9 +1,9 @@
 <div class="mx-auto w-full max-w-5xl px-4 py-16">
     <header class="max-w-2xl">
-        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Proyectos</p>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Proyectos</h1>
+        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Projects</p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Projects</h1>
         <p class="mt-3 text-gray-600 dark:text-neutral-400">
-            Una selección de los proyectos en los que he trabajado. Filtra por tipo para explorar.
+            A selection of projects I've worked on. Filter by category to explore.
         </p>
     </header>
 
@@ -24,7 +24,7 @@
         </div>
 
         <p class="text-sm text-gray-500 dark:text-neutral-400">
-            {{ count($this->filteredProjects) }} {{ count($this->filteredProjects) === 1 ? 'proyecto' : 'proyectos' }}
+            {{ count($this->filteredProjects) }} {{ count($this->filteredProjects) === 1 ? 'project' : 'projects' }}
         </p>
     </div>
 
@@ -34,7 +34,7 @@
         @empty
             <div class="col-span-full rounded-xl border border-dashed border-gray-300 bg-white p-10 text-center dark:border-neutral-700 dark:bg-neutral-800">
                 <p class="text-sm text-gray-500 dark:text-neutral-400">
-                    No hay proyectos en esta categoría todavía.
+                    No projects in this category yet.
                 </p>
             </div>
         @endforelse

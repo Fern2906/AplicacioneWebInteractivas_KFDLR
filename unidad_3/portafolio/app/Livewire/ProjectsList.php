@@ -10,17 +10,17 @@ class ProjectsList extends Component
     public string $filter = 'all';
 
     public array $filters = [
-        'all' => 'Todos',
+        'all' => 'All',
         'web' => 'Web',
-        'academico' => 'Académico',
-        'personal' => 'Personal / Móvil',
+        'academico' => 'Academic',
+        'personal' => 'Personal / Mobile',
     ];
 
     public array $projects = [
         [
             'id' => 'sistema-cacei',
-            'title' => 'Sistema CACEI',
-            'description' => 'Aplicación web para automatizar el cálculo de índices educativos CACEI (reprobación, deserción, abandono) mediante carga de archivos, reemplazando un proceso manual. Generación de reportes y visualizaciones dinámicas con Quick Chart, desarrollada bajo metodología SCRUM con pruebas unitarias y manuales técnico y de usuario.',
+            'title' => 'CACEI System',
+            'description' => 'Web application to automate the calculation of CACEI educational indicators (failed courses, dropout, and attrition rates) via file uploads, replacing a manual process. Generates dynamic reports and visualizations using Quick Chart. Developed under Agile/SCRUM methodology with unit testing, along with complete technical and user documentation.',
             'tech' => ['Laravel', 'MySQL', 'Tailwind CSS', 'Livewire', 'Alpine.js', 'Blade', 'QuickChart'],
             'category' => 'web',
             'year' => '2025',
@@ -29,8 +29,8 @@ class ProjectsList extends Component
         ],
         [
             'id' => 'clasificador-astronomico',
-            'title' => 'Clasificador de Objetos Astronómicos',
-            'description' => 'Entrenamiento de modelos SVM y Random Forest sobre 164,152 muestras del dataset ELAsTiCC para clasificar 4 tipos de estrellas variables (Cefeida, RR Lyrae, Delta Scuti, Binaria Eclipsante), con generación de reporte y análisis comparativo de métricas de desempeño.',
+            'title' => 'Astronomical Object Classifier',
+            'description' => 'Training of SVM and Random Forest models on 164,152 samples from the ELAsTiCC dataset to classify 4 types of variable stars (Cepheid, RR Lyrae, Delta Scuti, Eclipsing Binary), including automated report generation and comparative performance metrics analysis.',
             'tech' => ['Python', 'scikit-learn', 'Jupyter', 'Machine Learning', 'Pandas'],
             'category' => 'academico',
             'year' => '2024',
@@ -39,9 +39,9 @@ class ProjectsList extends Component
         ],
         [
             'id' => 'numi',
-            'title' => 'NUMI — Renta Vacacional',
-            'description' => 'Aplicación móvil de renta vacacional desarrollada en Flutter con persistencia local en SQLite. Incorpora catálogo y listado de propiedades, filtros de búsqueda, sistema de reservas e integración de APIs de geolocalización e imágenes turísticas en un mapa interactivo.',
-            'tech' => ['Dart', 'Flutter', 'SQLite', 'Geolocalización', 'APIs'],
+            'title' => 'NUMI — Vacation Rentals',
+            'description' => 'Mobile vacation rental application built with Flutter featuring local persistence using SQLite. Includes property catalog and listings, search filters, reservation system, and integration of geolocation APIs with interactive mapping.',
+            'tech' => ['Dart', 'Flutter', 'SQLite', 'Geolocation', 'APIs'],
             'category' => 'personal',
             'year' => '2025',
             'repo' => '',
@@ -49,8 +49,8 @@ class ProjectsList extends Component
         ],
         [
             'id' => 'portafolio-web',
-            'title' => 'Portafolio Web Personal',
-            'description' => 'Portafolio reactivo y modular desarrollado con Laravel 11, Livewire 3 y Tailwind CSS, diseñado para exhibir proyectos de software, experiencia profesional y competencias técnicas con diseño moderno y modo oscuro.',
+            'title' => 'Personal Web Portfolio',
+            'description' => 'Reactive and modular web portfolio built with Laravel 11, Livewire 3, and Tailwind CSS, designed to showcase software projects, professional experience, and technical skills with a modern layout and dark mode support.',
             'tech' => ['Laravel', 'Livewire', 'Tailwind CSS', 'Alpine.js', 'Blade'],
             'category' => 'web',
             'year' => '2026',

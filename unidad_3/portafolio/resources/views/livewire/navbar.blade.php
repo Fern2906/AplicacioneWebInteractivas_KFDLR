@@ -1,12 +1,12 @@
 <header
     class="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/90 text-sm backdrop-blur dark:border-neutral-700 dark:bg-neutral-900/90">
     <nav class="mx-auto flex w-full max-w-5xl flex-wrap items-center justify-between px-4 py-3 sm:flex-nowrap"
-        aria-label="Navegación principal">
+        aria-label="Main navigation">
         <a href="{{ route('home') }}" wire:navigate
             class="flex items-center gap-2 text-xl font-semibold text-gray-800 dark:text-white">
             <span
                 class="flex size-9 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">KF</span>
-            <span>Portafolio</span>
+            <span>Portfolio</span>
         </a>
 
         <button type="button"

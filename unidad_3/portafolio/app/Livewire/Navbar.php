@@ -7,9 +7,9 @@ use Livewire\Component;
 class Navbar extends Component
 {
     public array $navItems = [
-        ['label' => 'Inicio', 'url' => '/'],
-        ['label' => 'Proyectos', 'url' => '/projects'],
-        ['label' => 'Experiencia', 'url' => '/experience'],
+        ['label' => 'Home', 'url' => '/'],
+        ['label' => 'Projecs', 'url' => '/projects'],
+        ['label' => 'Experience', 'url' => '/experience'],
     ];
 
     public function render()

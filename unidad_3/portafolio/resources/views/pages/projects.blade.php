@@ -5,21 +5,21 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
-new #[Layout('layouts::portfolio')] #[Title('Proyectos')] class extends Component {
+new #[Layout('layouts::portfolio')] #[Title('Projects')] class extends Component {
     public string $filter = 'all';
 
     public array $filters = [
-        'all' => 'Todos',
+        'all' => 'All',
         'web' => 'Web',
-        'academico' => 'Académico',
-        'personal' => 'Personal / Móvil',
+        'academico' => 'Academic',
+        'personal' => 'Personal / Mobile',
     ];
 
     public array $projects = [
         [
             'id' => 'sistema-cacei',
-            'title' => 'Sistema CACEI',
-            'description' => 'Aplicación web para automatizar el cálculo de índices educativos CACEI (reprobación, deserción, abandono) mediante carga de archivos, reemplazando un proceso manual. Generación de reportes y visualizaciones dinámicas con Quick Chart, desarrollada bajo metodología SCRUM con pruebas unitarias y manuales técnico y de usuario.',
+            'title' => 'CACEI System',
+            'description' => 'Web application to automate the calculation of CACEI educational performance indicators (failed courses, dropout, and attrition rates) via file uploads, replacing a manual process. Generates dynamic reports and charts with QuickChart, built under SCRUM methodology.',
             'tech' => ['Laravel', 'MySQL', 'Tailwind CSS', 'Livewire', 'Alpine.js', 'Blade', 'QuickChart'],
             'category' => 'web',
             'year' => '2025',
@@ -27,34 +27,34 @@ new #[Layout('layouts::portfolio')] #[Title('Proyectos')] class extends Componen
             'demo' => '',
         ],
         [
+            'id' => 'daikin-visitor-system',
+            'title' => 'Visitor Registration System',
+            'description' => 'Enterprise visitor registration and tracking management system designed for host control, visit logistics, lobby check-ins, and vehicle access management.',
+            'tech' => ['C#', '.NET', 'ASP.NET Core', 'SQL Server', 'Bootstrap'],
+            'category' => 'web',
+            'year' => '2025',
+            'repo' => '',
+            'demo' => '',
+        ],
+        [
             'id' => 'clasificador-astronomico',
-            'title' => 'Clasificador de Objetos Astronómicos',
-            'description' => 'Entrenamiento de modelos SVM y Random Forest sobre 164,152 muestras del dataset ELAsTiCC para clasificar 4 tipos de estrellas variables (Cefeida, RR Lyrae, Delta Scuti, Binaria Eclipsante), con generación de reporte y análisis comparativo de métricas de desempeño.',
+            'title' => 'Astronomical Object Classifier',
+            'description' => 'Training of SVM and Random Forest models on the ELAsTiCC dataset to classify variable stars (Cepheid, RR Lyrae, Delta Scuti, Eclipsing Binary).',
             'tech' => ['Python', 'scikit-learn', 'Jupyter', 'Machine Learning', 'Pandas'],
             'category' => 'academico',
-            'year' => '2024',
+            'year' => '2025',
             'repo' => 'https://github.com/Fern2906/ml-astronomical-classification',
             'demo' => '',
         ],
         [
             'id' => 'numi',
-            'title' => 'NUMI — Renta Vacacional',
-            'description' => 'Aplicación móvil de renta vacacional desarrollada en Flutter con persistencia local en SQLite. Incorpora catálogo y listado de propiedades, filtros de búsqueda, sistema de reservas e integración de APIs de geolocalización e imágenes turísticas en un mapa interactivo.',
-            'tech' => ['Dart', 'Flutter', 'SQLite', 'Geolocalización', 'APIs'],
+            'title' => 'NUMI — Vacation Rentals',
+            'description' => 'Mobile vacation rental application built with Flutter featuring local persistence using SQLite. Includes property catalog and listings, search filters, reservation system, and integration of geolocation APIs on an interactive map.',
+            'tech' => ['Dart', 'Flutter', 'SQLite', 'Geolocation', 'APIs'],
             'category' => 'personal',
-            'year' => '2025',
+            'year' => '2024',
             'repo' => '',
             'demo' => 'https://youtube.com/shorts/ILPmVhhK3k4?si=257RD3wCrsZ8gz7f',
-        ],
-        [
-            'id' => 'portafolio-web',
-            'title' => 'Portafolio Web Personal',
-            'description' => 'Portafolio reactivo y modular desarrollado con Laravel 11, Livewire 3 y Tailwind CSS, diseñado para exhibir proyectos de software, experiencia profesional y competencias técnicas con diseño moderno y modo oscuro.',
-            'tech' => ['Laravel', 'Livewire', 'Tailwind CSS', 'Alpine.js', 'Blade'],
-            'category' => 'web',
-            'year' => '2026',
-            'repo' => 'https://github.com/Fern2906',
-            'demo' => '',
         ],
     ];
 
@@ -79,10 +79,10 @@ new #[Layout('layouts::portfolio')] #[Title('Proyectos')] class extends Componen
 
 <div class="mx-auto w-full max-w-5xl px-4 py-16">
     <header class="max-w-2xl">
-        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Proyectos</p>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Proyectos</h1>
+        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Projects</p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Featured Projects</h1>
         <p class="mt-3 text-gray-600 dark:text-neutral-400">
-            Una selección de los proyectos en los que he trabajado. Filtra por tipo para explorar.
+            A selection of software engineering projects, applications, and systems I've worked on.
         </p>
     </header>
 
@@ -103,7 +103,7 @@ new #[Layout('layouts::portfolio')] #[Title('Proyectos')] class extends Componen
         </div>
 
         <p class="text-sm text-gray-500 dark:text-neutral-400">
-            {{ count($this->filteredProjects) }} {{ count($this->filteredProjects) === 1 ? 'proyecto' : 'proyectos' }}
+            {{ count($this->filteredProjects) }} {{ count($this->filteredProjects) === 1 ? 'project' : 'projects' }}
         </p>
     </div>
 
@@ -113,7 +113,7 @@ new #[Layout('layouts::portfolio')] #[Title('Proyectos')] class extends Componen
         @empty
             <div class="col-span-full rounded-xl border border-dashed border-gray-300 bg-white p-10 text-center dark:border-neutral-700 dark:bg-neutral-800">
                 <p class="text-sm text-gray-500 dark:text-neutral-400">
-                    No hay proyectos en esta categoría todavía.
+                    No projects found in this category yet.
                 </p>
             </div>
         @endforelse

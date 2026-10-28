@@ -9,7 +9,7 @@
                     class="flex items-center gap-2 text-xl font-semibold text-gray-800 dark:text-white">
                     <span
                         class="flex size-9 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">KF</span>
-                    <span>Portafolio</span>
+                    <span>Portfolio</span>
                 </a>
 
                 <p class="mt-4 max-w-xs text-sm text-gray-600 dark:text-neutral-400">
@@ -35,7 +35,7 @@
         <div class="mt-8 border-t border-gray-200 pt-8 dark:border-neutral-700">
             <div class="flex flex-col items-center justify-between gap-y-4 sm:flex-row sm:gap-y-0">
                 <p class="text-sm text-gray-500 dark:text-neutral-400">
-                    © {{ $year }} Kevin Fernando De León Ramírez. Todos los derechos reservados.
+                    © {{ $year }} Kevin Fernando De León Ramírez. All rights reserved.
                 </p>
             </div>
         </div>

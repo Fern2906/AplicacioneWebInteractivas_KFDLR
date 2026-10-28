@@ -1,9 +1,9 @@
 <div class="mx-auto w-full max-w-5xl px-4 py-16">
     <header class="max-w-2xl">
-        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Trayectoria</p>
-        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Experiencia y Educación</h1>
+        <p class="text-sm font-semibold uppercase tracking-wider text-blue-600 dark:text-blue-500">Career Path</p>
+        <h1 class="mt-3 text-3xl font-bold tracking-tight sm:text-4xl">Experience & Education</h1>
         <p class="mt-3 text-gray-600 dark:text-neutral-400">
-            Un recorrido por mi trayectoria profesional, experiencia técnica en campo y formación académica.
+            A summary of my professional experience and academic background.
         </p>
     </header>
 
@@ -24,7 +24,7 @@
         </div>
 
         <p class="text-sm text-gray-500 dark:text-neutral-400">
-            {{ count($this->filteredItems) }} {{ count($this->filteredItems) === 1 ? 'entrada' : 'entradas' }}
+            {{ count($this->filteredItems) }} {{ count($this->filteredItems) === 1 ? 'entry' : 'entries' }}
         </p>
     </div>
 
@@ -38,7 +38,7 @@
         @else
             <div class="rounded-xl border border-dashed border-gray-300 bg-white p-10 text-center dark:border-neutral-700 dark:bg-neutral-800">
                 <p class="text-sm text-gray-500 dark:text-neutral-400">
-                    No hay entradas para este filtro.
+                    No entries for this filter.
                 </p>
             </div>
         @endif
@@ -46,11 +46,11 @@
 
     <div class="mt-16">
         <livewire:cta
-            title="¿Quieres conocer más?"
-            description="Puedes explorar mis proyectos o escribirme directamente para platicar sobre una vacante o colaboración."
-            button-text="Contactarme"
+            title="Want to know more?"
+            description="You can explore my projects or reach out directly to discuss job opportunities or collaborations."
+            button-text="Contact Me"
             button-url="mailto:kevinfernando1906@outlook.com"
-            secondary-button-text="Ver proyectos"
+            secondary-button-text="View Projects"
             :secondary-button-url="route('projects')"
         />
     </div>

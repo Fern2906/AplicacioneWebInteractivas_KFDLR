@@ -1,9 +1,16 @@
 <x-layouts::app :title="__('Dashboard')">
     <div class="flex h-full w-full flex-1 flex-col gap-4">
-        {{-- Encabezado --}}
-        <div class="px-1">
-            <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Pronóstico del Clima SLP</h1>
-            <p class="text-sm text-neutral-500">Datos de la API de Open-Meteo</p>
+        <div class="flex items-center justify-between px-1">
+            <div>
+                <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Pronóstico del Clima SLP</h1>
+                <p class="text-sm text-neutral-500">Datos de la API de Open-Meteo</p>
+            </div>
+            <button type="button" id="downloadPdfBtn" class="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-neutral-700 disabled:opacity-50 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9-9 0 0 0-9-9Z" />
+                </svg>
+                Descargar PDF
+            </button>
         </div>
 
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
@@ -204,6 +211,53 @@
                 });
 
                 document.getElementById('comparisonLoading').style.display = 'none';
+
+                // Habilitar botón de PDF y configurar captura de gráficas
+                const pdfBtn = document.getElementById('downloadPdfBtn');
+                pdfBtn.disabled = false;
+
+                pdfBtn.addEventListener('click', async () => {
+                    pdfBtn.disabled = true;
+                    pdfBtn.lastChild.textContent = ' Generando...';
+
+                    // Capturar cada canvas como imagen PNG base64
+                    const chartIds = ['tempChart', 'humidityChart', 'precipChart', 'comparisonChart'];
+                    const charts = {};
+                    chartIds.forEach(id => {
+                        const canvas = document.getElementById(id);
+                        if (canvas && canvas.width > 0) {
+                            charts[id] = canvas.toDataURL('image/png');
+                        }
+                    });
+
+                    try {
+                        const res = await fetch('{{ route("dashboard.pdf") }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                'Accept': 'application/pdf',
+                            },
+                            body: JSON.stringify({ charts }),
+                        });
+
+                        if (!res.ok) throw new Error('Error del servidor');
+
+                        const blob = await res.blob();
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'reporte-clima-slp.pdf';
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    } catch (e) {
+                        console.error('Error al generar el PDF:', e);
+                        alert('No se pudo generar el PDF. Inténtalo de nuevo.');
+                    } finally {
+                        pdfBtn.disabled = false;
+                        pdfBtn.lastChild.textContent = ' Descargar PDF';
+                    }
+                });
             } catch (err) {
                 console.error('Error al cargar los datos del clima:', err);
                 document.querySelectorAll('[id$="Loading"]').forEach(el => {

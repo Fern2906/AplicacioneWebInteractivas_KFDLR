@@ -9,6 +9,8 @@ export default defineConfig({
             input: [
                 'resources/css/app.css',
                 'resources/js/app.js',
+                'resources/js/passkeys.js',
+                'resources/js/charts.js',
             ],
             refresh: true,
             fonts: [

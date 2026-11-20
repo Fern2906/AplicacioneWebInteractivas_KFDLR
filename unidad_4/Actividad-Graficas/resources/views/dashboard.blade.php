@@ -1,18 +1,215 @@
 <x-layouts::app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
+    <div class="flex h-full w-full flex-1 flex-col gap-4">
+        {{-- Encabezado --}}
+        <div class="px-1">
+            <h1 class="text-2xl font-bold text-neutral-900 dark:text-neutral-100">Pronóstico del Clima SLP</h1>
+            <p class="text-sm text-neutral-500">Datos de la API de Open-Meteo</p>
+        </div>
+
         <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+            <div class="flex flex-col rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+                <h2 class="mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-300">Temperatura SLP (24 h)</h2>
+                <div class="relative h-44">
+                    <canvas id="tempChart"></canvas>
+                    <div id="tempLoading" class="absolute inset-0 flex items-center justify-center">
+                        <div class="size-8 animate-spin rounded-full border-2 border-neutral-300 border-t-blue-500 dark:border-neutral-600 dark:border-t-blue-500"></div>
+                    </div>
+                </div>
             </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+
+            <div class="flex flex-col rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+                <h2 class="mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-300">Humedad SLP</h2>
+                <div class="relative h-44">
+                    <canvas id="humidityChart"></canvas>
+                    <div id="humidityLoading" class="absolute inset-0 flex items-center justify-center">
+                        <div class="size-8 animate-spin rounded-full border-2 border-neutral-300 border-t-blue-500 dark:border-neutral-600 dark:border-t-blue-500"></div>
+                    </div>
+                </div>
             </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+
+            <div class="flex flex-col rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+                <h2 class="mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-300">Precipitación SLP</h2>
+                <div class="relative h-44">
+                    <canvas id="precipChart"></canvas>
+                    <div id="precipLoading" class="absolute inset-0 flex items-center justify-center">
+                        <div class="size-8 animate-spin rounded-full border-2 border-neutral-300 border-t-blue-500 dark:border-neutral-600 dark:border-t-blue-500"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
+
+        <div class="flex min-h-0 flex-1 flex-col rounded-xl border border-neutral-200 bg-white p-4 dark:border-neutral-700 dark:bg-neutral-900">
+            <h2 class="mb-2 text-sm font-semibold text-neutral-700 dark:text-neutral-300">Comparación de Temperatura — 7 días</h2>
+            <div class="relative min-h-0 flex-1">
+                <canvas id="comparisonChart"></canvas>
+                <div id="comparisonLoading" class="absolute inset-0 flex items-center justify-center">
+                    <div class="size-8 animate-spin rounded-full border-2 border-neutral-300 border-t-blue-500 dark:border-neutral-600 dark:border-t-blue-500"></div>
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const cities = [
+                { name: 'San Luis Potosí', lat: 22.15, lon: -100.98 },
+                { name: 'Guadalajara',       lat: 20.67, lon: -103.34 },
+                { name: 'Monterrey',         lat: 25.69, lon: -100.32 },
+            ];
+
+            const weatherUrl = '{{ route('weather.forecast') }}';
+
+            async function fetchWeather(city) {
+                const url = `${weatherUrl}?latitude=${city.lat}&longitude=${city.lon}&hourly=temperature_2m,relative_humidity_2m,precipitation,wind_speed_10m`;
+                const res = await fetch(url);
+                return res.json();
+            }
+
+            function hourLabels(times, count) {
+                return times.slice(0, count).map(t =>
+                    new Date(t).toLocaleTimeString('es-MX', { hour: '2-digit' })
+                );
+            }
+
+            function fullLabels(times) {
+                return times.map(t =>
+                    new Date(t).toLocaleString('es-MX', { day: '2-digit', month: 'short', hour: '2-digit' })
+                );
+            }
+
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#d4d4d8' : '#3f3f46';
+            const gridColor = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.08)';
+
+            function axisOptions(maxTicksLimit) {
+                return {
+                    x: { ticks: { color: textColor, maxTicksLimit }, grid: { color: gridColor } },
+                    y: { ticks: { color: textColor }, grid: { color: gridColor } },
+                };
+            }
+
+            try {
+                const cdmx = await fetchWeather(cities[0]);
+                const h = 24;
+                const labels24 = hourLabels(cdmx.hourly.time, h);
+                const temps    = cdmx.hourly.temperature_2m.slice(0, h);
+                const humidity = cdmx.hourly.relative_humidity_2m.slice(0, h);
+                const precip   = cdmx.hourly.precipitation.slice(0, h);
+
+                new Chart(document.getElementById('tempChart'), {
+                    type: 'line',
+                    data: {
+                        labels: labels24,
+                        datasets: [{
+                            label: 'Temperatura (°C)',
+                            data: temps,
+                            borderColor: '#ef4444',
+                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 2,
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            ...axisOptions(12),
+                            y: { ticks: { color: textColor }, grid: { color: gridColor }, beginAtZero: false },
+                        },
+                    },
+                });
+
+                new Chart(document.getElementById('humidityChart'), {
+                    type: 'line',
+                    data: {
+                        labels: labels24,
+                        datasets: [{
+                            label: 'Humedad (%)',
+                            data: humidity,
+                            borderColor: '#3b82f6',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.3,
+                            pointRadius: 2,
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            ...axisOptions(12),
+                            y: { ticks: { color: textColor }, grid: { color: gridColor }, beginAtZero: true, max: 100 },
+                        },
+                    },
+                });
+
+                new Chart(document.getElementById('precipChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: labels24,
+                        datasets: [{
+                            label: 'Precipitación (mm)',
+                            data: precip,
+                            backgroundColor: 'rgba(34, 211, 238, 0.7)',
+                        }],
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            ...axisOptions(12),
+                            y: { ticks: { color: textColor }, grid: { color: gridColor }, beginAtZero: true },
+                        },
+                    },
+                });
+
+                document.getElementById('tempLoading').style.display = 'none';
+                document.getElementById('humidityLoading').style.display = 'none';
+                document.getElementById('precipLoading').style.display = 'none';
+
+                const allData = await Promise.all(cities.map(fetchWeather));
+                const fullLab = fullLabels(allData[0].hourly.time);
+                const colors = ['#ef4444', '#3b82f6', '#22c55e'];
+
+                const datasets = cities.map((city, i) => ({
+                    label: city.name,
+                    data: allData[i].hourly.temperature_2m,
+                    borderColor: colors[i],
+                    backgroundColor: colors[i] + '20',
+                    tension: 0.3,
+                    fill: false,
+                    pointRadius: 0,
+                    borderWidth: 2,
+                }));
+
+                new Chart(document.getElementById('comparisonChart'), {
+                    type: 'line',
+                    data: { labels: fullLab, datasets },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: { mode: 'index', intersect: false },
+                        plugins: {
+                            legend: { position: 'top', labels: { color: textColor } },
+                        },
+                        scales: {
+                            ...axisOptions(14),
+                            y: { ticks: { color: textColor }, grid: { color: gridColor }, beginAtZero: false },
+                        },
+                    },
+                });
+
+                document.getElementById('comparisonLoading').style.display = 'none';
+            } catch (err) {
+                console.error('Error al cargar los datos del clima:', err);
+                document.querySelectorAll('[id$="Loading"]').forEach(el => {
+                    el.innerHTML = '<p class="text-sm text-red-500">Error al cargar</p>';
+                });
+            }
+        });
+    </script>
 </x-layouts::app>
